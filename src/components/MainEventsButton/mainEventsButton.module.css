@@ -1,0 +1,14 @@
+.button {
+  background-color: white;
+  color: firebrick;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: .2s;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  margin-left: 20px;
+}
+
+.button:hover {
+  opacity: .7;
+}

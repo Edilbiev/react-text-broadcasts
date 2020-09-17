@@ -1,0 +1,14 @@
+.handlers {
+  display: flex;
+  justify-content: space-between;
+}
+
+.posts {
+  max-width: 1000px;
+  flex: 1;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}

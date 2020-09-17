@@ -1,0 +1,36 @@
+.auth {
+  margin: 150px auto;
+  width: 440px;
+}
+
+.input {
+  border: 1px solid lightgray;
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  /*outline: none;*/
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: lighter;
+}
+
+.button {
+  background-color: #1976d2;
+  color: white;
+  width: 100%;
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  transition: .5s;
+  box-shadow: grey 0 2px 2px 0;
+}
+
+.button:hover {
+  background-color: #14457E;
+}

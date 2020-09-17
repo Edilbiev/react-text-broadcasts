@@ -1,0 +1,42 @@
+.mainEvent {
+  font-size: 14px;
+  margin-left: 30px;
+  display: flex;
+  border-bottom: 1px whitesmoke solid;
+  padding: 10px 0;
+}
+
+.mainEvent:hover {
+  cursor: pointer;
+}
+
+.mainEvent:hover .checkpoint {
+  background-color: firebrick;
+}
+
+.mainEvent:hover .text {
+  opacity: .7;
+}
+
+.time {
+  color: firebrick;
+  margin-right: 10px;
+}
+
+.checkpoint {
+  width: 10px;
+  height: 10px;
+  background-color: lightgray;
+  border-radius: 50%;
+  position: absolute;
+  left: -6px;
+  cursor: pointer;
+  transition: .7s;
+}
+
+.text {
+  color: black;
+  transition: .7s;
+}
+
+

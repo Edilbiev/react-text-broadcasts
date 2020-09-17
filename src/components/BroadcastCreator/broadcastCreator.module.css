@@ -1,0 +1,54 @@
+.broadcastsCreator {
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 whitesmoke;
+  padding: 20px;
+  background-color: white;
+  margin-bottom: 20px;
+  transition: .3s;
+}
+
+.broadcastsCreator:hover {
+  box-shadow: 0 0 10px 0 grey;
+}
+
+.title, .title::placeholder {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.content, .content::placeholder {
+  color: black;
+  line-height: 34px;
+  font-family: "PT Serif", serif;
+}
+
+.time {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: lightgray;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel, .add {
+  margin-top: 10px;
+  background-color: whitesmoke;
+  color: black;
+  padding: 10px;
+  transition: .2s;
+  border-radius: 5px;
+}
+
+.cancel:hover {
+  background-color: firebrick;
+  color: white;
+}
+
+.add:hover {
+  background-color: mediumseagreen;
+  color: white;
+}

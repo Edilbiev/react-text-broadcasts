@@ -1,0 +1,31 @@
+.buttonsGroup {
+  font-size: 14px;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.text {
+  padding: 0 5px;
+}
+
+.button {
+  background-color: whitesmoke;
+  color: black;
+  padding: 5px;
+  transition: .2s;
+  border-right: 1px white solid;
+}
+
+.endButton {
+  border-radius: 0 5px 5px 0;
+}
+
+.activeButton {
+  background-color: firebrick;
+  color: white;
+}
+
+.button:hover {
+  opacity: .7;
+}

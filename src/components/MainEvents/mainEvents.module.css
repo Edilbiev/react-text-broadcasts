@@ -1,0 +1,7 @@
+.mainEvents, .mainEventsOpened {
+  position: relative;
+  border-left: 1px whitesmoke solid;
+  margin-left: 20px;
+  transition: .7s;
+  width: 300px;
+}
