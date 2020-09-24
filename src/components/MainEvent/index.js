@@ -3,8 +3,6 @@ import dayjs from "dayjs";
 import s from "./mainEvent.module.css";
 
 function MainEvent({ item }) {
-
-
   const handleScroll = () => {
     const targetDOMElement = document.getElementById(item._id);
     targetDOMElement.scrollIntoView({block: "center", behavior: "smooth"})

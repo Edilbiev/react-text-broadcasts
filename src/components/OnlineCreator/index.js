@@ -1,22 +1,24 @@
 import React, {useState} from "react";
-import s from "./broadcastCreator.module.css";
-import BroadcastCreatorButton from "../CreatorButton";
-import dayjs from "dayjs";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {useDispatch} from "react-redux";
+import {useRouteMatch} from "react-router-dom";
+import { Editor } from "react-draft-wysiwyg";
+import {convertToRaw, EditorState} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import dayjs from "dayjs";
+import s from "./onlineCreator.module.css";
+import BroadcastCreatorButton from "../CreatorButton";
 import {onlineCreated} from "../../redux/actions";
 
-function BroadcastCreator() {
+
+function OnlineCreator() {
+  const m = useRouteMatch('/admin/add');
+
   const dispatch = useDispatch();
-  const [broadcastCreator, setBroadcastCreator] = useState(false);
+  const [broadcastCreator, setBroadcastCreator] = useState(m);
 
   const [title, setTitle] = useState("");
   const handleChangeTitle = (e) => setTitle(e.target.value);
-
-  // const [content, setContent] = useState("");
-  // const handleChangeContent = (e) => setContent(e.target.value);
 
   const [content, setContent] = useState(EditorState.createEmpty());
   const handleChangeContent = (editorState) => setContent(editorState);
@@ -26,17 +28,17 @@ function BroadcastCreator() {
   };
 
   const handleAddBroadcast = () => {
-    dispatch(onlineCreated(title, "тест"))
+    dispatch(onlineCreated(title, draftToHtml(convertToRaw(content.getCurrentContent()))))
   }
 
 
   if (!broadcastCreator) {
     return <BroadcastCreatorButton handleClick={handleBroadcastCreator} text="Новая трансляция..."/>
   }
-  console.log(content)
 
   return (
     <div className={s.broadcastsCreator}>
+
       <div className={s.time}>
         {dayjs(new Date()).format('HH:mm')}
       </div>
@@ -49,7 +51,6 @@ function BroadcastCreator() {
         />
       </div>
       <div>
-        {/*<textarea className={s.content} placeholder="Введите контент" />*/}
         <Editor
           editorState={content}
           placeholder="Введите контент"
@@ -71,4 +72,4 @@ function BroadcastCreator() {
   );
 }
 
-export default BroadcastCreator;
+export default OnlineCreator;

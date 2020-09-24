@@ -6,14 +6,28 @@ export default function useEmbed(item) {
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const splittedContent = item.content.split(/(https:\S+)/);
+    const splittedContent = item.content.split(/(:?\s)(https?:[^\s<]+)/);
+    console.log(splittedContent)
     const divForContent = document.createElement("div");
 
     splittedContent.forEach((part) => {
       if (isLink(part)) {
-        divForContent.append(getScriptNode(part));
+        const node = getScriptNode(part);
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "//platform.instagram.com/en_US/embeds.js"
+
+        if(node instanceof Promise) {
+          node.then(e => {
+            divForContent.innerHTML = e
+            divForContent.append(script)
+          })
+        }
+        else {
+          divForContent.append(getScriptNode(part));
+        }
       } else {
-        divForContent.append(part);
+        divForContent.insertAdjacentHTML('beforeend', part);
       }
     });
 

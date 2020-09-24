@@ -1,16 +1,31 @@
-import React from 'react';
-import {useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Onlines from "../Onlines";
-import BroadcastCreator from "../BroadcastCreator";
+import OnlineCreator from "../OnlineCreator";
+import { onlinesLoaded } from "../../redux/actions";
 
-function AdminOnlines() {
-  const onlines = useSelector(state => state.onlines.items);
+function AdminOnlines({ isAdmin }) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(onlinesLoaded());
+  }, [dispatch]);
+
+  const onlines = useSelector((state) => state.onlines.items);
+
+  // const history = useHistory();
+  //
+  // const handleBroadcastCreator = () => {
+  //   history.push('/admin/add')
+  // };
 
   return (
     <div>
-      <BroadcastCreator/>
+      <OnlineCreator />
       <div>
-        {onlines.map((online) => <Onlines online={online} key={online._id}/>)}
+        {onlines.map((online) => (
+          <Onlines online={online} key={online._id} isAdmin={isAdmin} />
+        ))}
       </div>
     </div>
   );

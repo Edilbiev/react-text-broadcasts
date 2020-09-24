@@ -1,13 +1,18 @@
 import React from 'react';
 import s from './dropdown.module.css'
+import OutsideClickHandler from "react-outside-click-handler";
 
-function Dropdown({ opened, children }) {
+function Dropdown({ opened, handleClick, children }) {
   if (opened === false) {
     return null
   }
 
   return (
-    <div className={s.dropdown}>{children}</div>
+    <OutsideClickHandler
+      onOutsideClick={handleClick}
+    >
+      <div className={s.dropdown}>{children}</div>
+    </OutsideClickHandler>
   );
 }
 

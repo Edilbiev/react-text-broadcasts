@@ -1,10 +1,4 @@
-.postsPage {
-  display: flex;
-  justify-content: center;
-}
-
 .loader {
   width: 100px;
   margin: calc(50vh - 25px) auto;
 }
-

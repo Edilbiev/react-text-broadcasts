@@ -1,34 +1,52 @@
-import React, {useEffect, useRef, useState} from "react";
-import dayjs from 'dayjs';
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 import cl from "classnames";
 import useEmbed from "../../hooks/useEmbed";
 import s from "./post.module.css";
-import {useSelector} from "react-redux";
-import Dropdown from "../common/Dropdown/Dropdown";
-import PostDropdown from "../PostDropdown";
+import { useDispatch } from "react-redux";
+import DropdownMenu from "../DropdownMenu";
+import { postDeleted } from "../../redux/actions";
+import Popup from "../common/Popup";
 
-function Post({ item }) {
+function Post({ item, isAdmin }) {
+  const dispatch = useDispatch();
+  const id = useParams().id;
+
   const ref = useRef(null);
-  const ss = useEmbed(item);
-  const isAdmin = useSelector(state => state.auth.isAdmin);
-  const [dropdown, setDropdown] = useState(false);
+  const embedHook = useEmbed(item);
 
   useEffect(() => {
-    if(ss !== null) {
-      ref.current.append(ss)
+    if (embedHook !== null) {
+      ref.current.append(embedHook);
     }
-  }, [ss])
+  }, [embedHook]);
+
+  const [popup, setPopup] = useState(false);
+  const handlePopup = () => setPopup(!popup);
+  const handleDelete = () => {
+    dispatch(postDeleted(id, item._id));
+  };
 
   return (
-    <div id={item._id} className={cl(s.card, {
-      [s.importantCard]: item.important
-    })}>
+    <div
+      id={item._id}
+      className={cl(s.card, {
+        [s.importantCard]: item.important,
+      })}
+    >
       <div className={s.time}>
-        {dayjs(item.postData).format('HH:mm')}
-        {isAdmin ? <PostDropdown /> : null}
+        {dayjs(item.createdDate).format("HH:mm")}
+        {isAdmin ? <DropdownMenu handlePopup={handlePopup} /> : null}
       </div>
       <div className={s.title}>{item.title}</div>
-      <div className={s.content} ref={ref}/>
+      <div className={s.content} ref={ref} />
+      <Popup
+        isOpened={popup}
+        cancel={handlePopup}
+        action={handleDelete}
+        text={"Подтвердите действие"}
+      />
     </div>
   );
 }

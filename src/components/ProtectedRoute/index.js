@@ -1,11 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import AdminPage from "../AdminPage";
-import { useSelector } from "react-redux";
 import AdminPosts from "../AdminPosts";
+import useLogin from "../../hooks/useLogin";
 
 function ProtectedRoute({ path }) {
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const [isAdmin, fetching] = useLogin();
+
+  if(fetching) {
+    return null;
+  }
 
   if(!isAdmin) {
     return <Redirect to="/auth" />
@@ -14,10 +18,10 @@ function ProtectedRoute({ path }) {
   return (
     <>
       <Route exact path={path}>
-        <AdminPage />
+        <AdminPage isAdmin={isAdmin }/>
       </Route>
       <Route exact path={`${path}/:id`}>
-        <AdminPosts />
+        <AdminPosts isAdmin={isAdmin}/>
       </Route>
     </>
   );

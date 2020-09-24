@@ -4,6 +4,7 @@
   display: flex;
   border-bottom: 1px whitesmoke solid;
   padding: 10px 0;
+  width: 300px;
 }
 
 .mainEvent:hover {

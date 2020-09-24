@@ -1,5 +1,5 @@
 .auth {
-  margin: 150px auto;
+  margin: calc(50vh - 134px) auto;
   width: 440px;
 }
 
@@ -10,7 +10,6 @@
   border-radius: 5px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  /*outline: none;*/
 }
 
 .error {

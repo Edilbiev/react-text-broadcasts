@@ -25,8 +25,8 @@ function MainEvents({ isOpened }) {
 
   const items = useSelector((state) =>  {
     const newItems = reversed
-      ? [...state.posts.items].sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate))
-      : [...state.posts.items].sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate));
+      ? [...state.posts.items].sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate))
+      : [...state.posts.items].sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
 
     if(postsCount !== -1) {
       return newItems.slice(0, postsCount);
@@ -35,12 +35,9 @@ function MainEvents({ isOpened }) {
     return newItems;
   });
 
-  if (!isOpened) {
-    return null
-  }
-
   return (
     <div className={s.mainEvents}>
+      Ключевые моменты
       {items.map((item) => <MainEvent item={item} key={item._id} />)}
     </div>
   )

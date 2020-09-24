@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import s from "./button.module.css";
 import cl from "classnames";
 
 function Switcher({ defaultValue, onSwitchedOn, onSwitchedOff }) {
   const [isOn, setIsOn] = useState(defaultValue);
+
+  useEffect(() => {
+    setIsOn(defaultValue);
+  }, [defaultValue]);
 
   return (
     <div className={s.switcher}>
@@ -22,7 +26,6 @@ function Switcher({ defaultValue, onSwitchedOn, onSwitchedOff }) {
       >
         <div className={s.round}/>
       </div>
-      перевернуть трансляцию
     </div>
   );
 }

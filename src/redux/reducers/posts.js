@@ -2,6 +2,7 @@ const initialState = {
   loading: false,
   items: [],
   postCreating: false,
+  deleting: false,
 };
 
 export default function broadcasts(state = initialState, action) {
@@ -9,6 +10,7 @@ export default function broadcasts(state = initialState, action) {
     case "live/load/started":
       return {
         ...state,
+        items: [],
         loading: true,
       };
 
@@ -33,6 +35,18 @@ export default function broadcasts(state = initialState, action) {
           ...state.items,
         ],
         postCreating: false,
+      }
+
+    case "post/delete/started":
+      return {
+        ...state,
+        deleting: true,
+      }
+
+    case "post/delete/succeed":
+      return {
+        ...state,
+        deleting: false,
       }
 
     default:

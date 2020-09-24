@@ -1,4 +1,4 @@
-import { post } from "../api/api";
+import {del, get, post} from "../api/api";
 
 export function onlinesLoaded() {
   return (dispatch) => {
@@ -23,17 +23,24 @@ export function onlineCreated(title, introtext, photoId) {
   return (dispatch) => {
     dispatch({ type: "online/create/started" });
 
-    fetch("http://151.248.117.7:5005/api/onlines", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, introtext, photoId })
-    }).then((response) => response.json())
+    post("/onlines", { title, introtext, photoId })
       .then((json) => {
         dispatch({
           type: "online/create/succeed",
+          payload: json,
+        })
+      })
+  }
+}
+
+export function onlineDeleted(onlineId) {
+  return (dispatch) => {
+    dispatch({ type: "online/delete/started" });
+
+    del("/onlines")
+      .then((json) => {
+        dispatch({
+          type: "online/delete/succeed",
           payload: json,
         })
       })
@@ -62,19 +69,23 @@ export function postCreated(id ,title, content, important) {
   return (dispatch) => {
     dispatch({ type: "post/create/started" });
 
-    fetch(`http://151.248.117.7:5005/api/onlines/${id}`, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, content, important })
-    }).then((response) => response.json())
+    post(`/post/${id}`, {title, content, important})
       .then((json) => {
         dispatch({
           type: "post/create/succeed",
           payload: json,
         })
+      })
+  }
+}
+
+export function postDeleted(id, postId) {
+  return (dispatch) => {
+    dispatch({ type: "post/delete/started" });
+
+    del(`/post/${id}`)
+      .then((json) => {
+        dispatch({ type: "post/delete/succeed" })
       })
   }
 }
@@ -85,14 +96,23 @@ export function userAuthorised(login, password) {
     dispatch({ type: "auth/process/started" });
 
     post("/auth", { login, password }).then((json) => {
-      if (json.hasOwnProperty('token')) {
-        localStorage.setItem("token", json.token);
+      if (json.status === "success") {
+        if(json.hasOwnProperty('token')) {
+          localStorage.setItem("token", json.token);
+        }
+
+        dispatch({
+          type: "auth/process/succeed",
+          payload: json,
+        });
+      } else {
+        dispatch({
+          type: "auth/process/failed",
+          payload: json,
+        })
       }
 
-      dispatch({
-        type: "auth/process/succeed",
-        payload: json,
-      });
+
     });
   };
 }
@@ -143,5 +163,18 @@ export function mainEventsBarHandled(id) {
   return {
     type: "main/events/handled",
     payload: id,
+  }
+}
+
+export default function autologinReceived() {
+  return (dispatch) => {
+    dispatch({type: "autologin/receive/started"});
+
+    get("/autologin").then((json) => {
+        dispatch({
+          type: "autologin/receive/succeed",
+          payload: json
+        })
+      })
   }
 }

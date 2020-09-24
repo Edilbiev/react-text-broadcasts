@@ -1,9 +1,10 @@
 .card {
   margin: auto auto 30px auto;
   border-radius: 10px;
-  box-shadow: 0 0 15px 0 whitesmoke;
+  box-shadow: 0 0 25px 0 whitesmoke;
   padding: 20px;
   background-color: white;
+  border: 5px solid white;
 }
 
 .importantCard {

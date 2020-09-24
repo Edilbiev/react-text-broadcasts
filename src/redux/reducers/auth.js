@@ -1,14 +1,13 @@
-const isAdmin =
-  localStorage.getItem("token") === null
-    ? false
-    : localStorage.getItem("token") !== "";
+const jwt = localStorage.getItem("token");
 
 const initialState = {
   loading: false,
   success: false,
   error: false,
-  isAdmin,
-  jwt: "",
+  isAdmin: false,
+  fetching: false,
+  authorized: false,
+  jwt,
 };
 
 export default function auth(state = initialState, action) {
@@ -24,14 +23,29 @@ export default function auth(state = initialState, action) {
         ...state,
         jwt: action.payload,
         loading: false,
+        authorized: true
       };
 
     case "auth/process/failed":
       return {
         ...state,
-        jwt: action.payload,
+        error: action.payload.error,
         loading: false,
       };
+
+    case "autologin/receive/started":
+      return {
+        ...state,
+        fetching: true,
+      }
+
+    case "autologin/receive/succeed":
+      return {
+        ...state,
+        fetching: false,
+        isAdmin: action.payload.status === "success",
+      }
+
 
     default:
       return state;

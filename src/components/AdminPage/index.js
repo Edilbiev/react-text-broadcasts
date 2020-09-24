@@ -1,10 +1,10 @@
 import React from 'react';
 import AdminOnlines from "../AdminOnlines";
 
-function AdminPage() {
+function AdminPage( {isAdmin} ) {
   return (
     <>
-      <AdminOnlines />
+      <AdminOnlines isAdmin={isAdmin}/>
     </>
   );
 }

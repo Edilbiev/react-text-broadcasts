@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userAuthorised } from "../../redux/actions";
 import s from "./auth.module.css";
@@ -6,8 +6,13 @@ import { Redirect } from "react-router-dom";
 
 function Auth() {
   const dispatch = useDispatch();
-  const jwt = useSelector((state) => state.auth.jwt);
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const loading = useSelector((state) => state.auth.loading);
+  const authorized = useSelector((state) => state.auth.authorized);
+
+  const [error, setError] = useState(false);
+
+  const [clicked, setClicked] = useState(false);
+
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,16 +24,19 @@ function Auth() {
     setPassword(e.target.value);
   };
 
-  const sendForm = () => {
-    dispatch(userAuthorised(login, password));
-  };
-
   const handleClick = () => {
-    sendForm();
+    dispatch(userAuthorised(login, password))
+    setClicked(true);
   };
 
-  if (isAdmin) {
-    return <Redirect to="/admin" />;
+  if(!loading && clicked) {
+    if(authorized) {
+      return <Redirect to="/admin" />;
+    } else {
+      setError(true);
+    }
+
+    setClicked(false);
   }
 
   return (
@@ -46,13 +54,13 @@ function Auth() {
         className={s.input}
       />
       <div>
-        <button type="submit" onClick={handleClick} className={s.button}>
+        <button type="submit" onClick={handleClick} className={s.button} disabled={loading}>
           Войти
         </button>
       </div>
-      {jwt.hasOwnProperty("error") ? (
-        <div className={s.error}>{jwt.error}</div>
-      ) : null}
+      <div>
+        {error && 'ошибка'}
+      </div>
     </div>
   );
 }

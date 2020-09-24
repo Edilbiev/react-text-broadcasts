@@ -6,14 +6,11 @@ import { orderReversed, postsLoaded } from "../../redux/actions";
 import Switcher from "../Switcher";
 import PostsSliceButtons from "../PostsSliceButtons";
 import s from "./posts.module.css";
+import Loader from "../common/Loader";
 
 function Posts() {
   const dispatch = useDispatch();
   const id = useParams().id;
-
-  useEffect(() => {
-    dispatch(postsLoaded(id));
-  }, [dispatch, id]);
 
   const reversed = useSelector(({ onlines }) => {
     if (onlines.reversed.hasOwnProperty(id)) {
@@ -34,10 +31,10 @@ function Posts() {
   const items = useSelector((state) => {
     const newItems = reversed
       ? [...state.posts.items].sort(
-          (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+          (a, b) => new Date(a.createdDate) - new Date(b.createdDate)
         )
       : [...state.posts.items].sort(
-          (a, b) => new Date(a.createdDate) - new Date(b.createdDate)
+          (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
         );
 
     if (postsCount !== -1) {
@@ -54,6 +51,7 @@ function Posts() {
   const handleSwitch = () => {
     reverseOrder();
   };
+
 
   return (
     <div className={s.post}>

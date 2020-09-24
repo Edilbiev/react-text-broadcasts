@@ -5,6 +5,11 @@
   background-color: white;
   margin-bottom: 20px;
   transition: .3s;
+  border: 5px solid white;
+}
+
+.importantPostCreator {
+  border: 5px solid firebrick;
 }
 
 .postCreator:hover {
@@ -36,12 +41,21 @@
   margin-top: 10px;
 }
 
-.cancel, .add, .checkbox {
-  background-color: whitesmoke;
-  color: black;
+.cancel, .add {
   padding: 10px;
   transition: .2s;
   border-radius: 5px;
+}
+
+.cancel {
+  background-color: whitesmoke;
+  margin-right: 10px;
+  color: firebrick;
+}
+
+.add {
+  background-color: mediumseagreen;
+  color: white;
 }
 
 .cancel:hover {
@@ -50,6 +64,6 @@
 }
 
 .add:hover {
-  background-color: mediumseagreen;
+  background-color: green;
   color: white;
 }

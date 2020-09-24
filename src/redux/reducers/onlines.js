@@ -17,6 +17,7 @@ const initialState = {
   loading: false,
   items: [],
   onlineCreating: false,
+  deleting: false,
   reversed,
   postsCount,
   mainEventsBarOpened,
@@ -88,6 +89,22 @@ export default function onlines(state = initialState, action) {
           ...state.items,
         ],
         onlineCreating: false,
+      }
+
+    case "online/delete/started":
+      return {
+        ...state,
+        deleting: true,
+      }
+
+    case "online/delete/succeed":
+      return {
+        ...state,
+        items: [
+          action.payload,
+          ...state.items,
+        ],
+        deleting: false,
       }
 
     default:
