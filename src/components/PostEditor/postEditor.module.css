@@ -1,13 +1,34 @@
-.broadcastsCreator {
+.background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  overflow-x: hidden;
+  background-color: #00000055;
+}
+
+.postCreator {
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 whitesmoke;
+  box-shadow: 0 0 10px 0 grey;
   padding: 20px;
   background-color: white;
   margin-bottom: 20px;
   transition: .3s;
+  border: 5px solid white;
+  max-width: 1000px;
+  box-sizing: border-box;
 }
 
-.broadcastsCreator:hover {
+.importantPostCreator {
+  border: 5px solid firebrick;
+}
+
+.postCreator:hover {
   box-shadow: 0 0 10px 0 grey;
 }
 
@@ -29,9 +50,20 @@
   color: lightgray;
 }
 
+.handlers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .buttons {
   display: flex;
-  justify-content: flex-end;
+}
+
+.loader {
+  width: 24px;
+  margin: calc(-38px + 6px) auto;
 }
 
 .loader {
@@ -39,7 +71,7 @@
   margin: calc(-38px + 8px) auto;
 }
 
-.cancel, .add {
+.cancel, .edit {
   padding: 10px;
   transition: .2s;
   border-radius: 5px;
@@ -56,24 +88,21 @@
   color: white;
 }
 
-.add {
+.edit {
   background-color: mediumseagreen;
   color: white;
 }
 
-.add:hover {
+.edit:hover {
   background-color: green;
   color: white;
 }
 
-.add[disabled] {
+.edit[disabled] {
   opacity: .6;
   cursor: initial;
 }
 
-.add[disabled]:hover {
+.edit[disabled]:hover {
   background-color: mediumseagreen;
 }
-
-
-

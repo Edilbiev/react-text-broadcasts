@@ -45,7 +45,7 @@ function PostsPage() {
       <MainEventsButton handleMainEventsBar={handleMainEventsBar} />
       <CSSTransition
         in={mainEventsBarOpened}
-        timeout={200}
+        timeout={300}
         classNames="transition"
         unmountOnExit
       >

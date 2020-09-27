@@ -1,11 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import dayjs from "dayjs";
 import s from "./onlines.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch } from "react-redux";
 import DropdownMenu from "../DropdownMenu";
-import {onlineDeleted, postDeleted} from "../../redux/actions";
+import { onlineDeleted } from "../../redux/actions";
 import Popup from "../common/Popup";
+import OnlineEditor from "../OnlineEditor";
 
 function Onlines({ online, isAdmin }) {
   const dispatch = useDispatch();
@@ -20,24 +21,45 @@ function Onlines({ online, isAdmin }) {
   };
 
   const [popup, setPopup] = useState(false);
-  const handlePopup = (e) => {
-    e.stopPropagation();
-    setPopup(!popup);
-  }
+  const handlePopup = () => setPopup(!popup);
+
   const handleDelete = (e) => {
     e.stopPropagation();
     dispatch(onlineDeleted(online._id));
-  }
+  };
+
+  const [editor, setEditor] = useState(false);
+  const handleEditor = () => setEditor(!editor);
 
   return (
-    <div className={s.online} onClick={handleClick}>
-      <div className={s.time}>
-        {dayjs(online.postData).format('HH:mm')}
-        {isAdmin ? <DropdownMenu handlePopup={handlePopup}/> : null}
+    <div>
+      <div className={s.online} onClick={handleClick}>
+        <div className={s.time}>
+          {dayjs(online.startedDate).format("HH:mm")}
+          {isAdmin ? (
+            <DropdownMenu
+              handlePopup={handlePopup}
+              handleEditor={handleEditor}
+            />
+          ) : null}
+        </div>
+        <div className={s.title}>{online.title}</div>
+        <div
+          className={s.content}
+          dangerouslySetInnerHTML={{ __html: online.introtext }}
+        />
       </div>
-      <div className={s.title}>{online.title}</div>
-      <div className={s.content} dangerouslySetInnerHTML={{__html: online.introtext}}/>
-      <Popup isOpened={popup} cancel={handlePopup} action={handleDelete} text={"Подтвердите действие"}/>
+      <Popup
+        isOpened={popup}
+        cancel={handlePopup}
+        action={handleDelete}
+        text={"Подтвердите действие"}
+      />
+      <OnlineEditor
+        online={online}
+        isOpened={editor}
+        cancel={handleEditor}
+      />
     </div>
   );
 }

@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Post from "../Post";
-import { orderReversed, postsLoaded } from "../../redux/actions";
+import { orderReversed } from "../../redux/actions";
 import Switcher from "../Switcher";
 import PostsSliceButtons from "../PostsSliceButtons";
 import s from "./posts.module.css";
-import Loader from "../common/Loader";
 
 function Posts() {
   const dispatch = useDispatch();

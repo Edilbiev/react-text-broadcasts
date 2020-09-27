@@ -4,10 +4,22 @@ import DropdownItem from "../common/Dropdown/DropdownItem";
 import s from "./dropdownMenu.module.css";
 import icon from "./more_horiz-24px.svg";
 
-function DropdownMenu({ handlePopup, handleEdit }) {
+function DropdownMenu({ handlePopup, handleEditor }) {
   const [dropdown, setDropdown] = useState(false);
   const handleClick = (e) => {
     e.stopPropagation();
+    setDropdown(!dropdown);
+  };
+
+  const handleOpenPopup = (e) => {
+    e.stopPropagation();
+    handlePopup();
+    setDropdown(!dropdown);
+  };
+
+  const handleOpenEditor = (e) => {
+    e.stopPropagation();
+    handleEditor();
     setDropdown(!dropdown);
   };
 
@@ -17,8 +29,8 @@ function DropdownMenu({ handlePopup, handleEdit }) {
         <img src={icon} alt="icon" />
       </button>
       <Dropdown opened={dropdown} handleClick={handleClick}>
-        <DropdownItem>Изменить</DropdownItem>
-        <DropdownItem action={handlePopup}>Удалить</DropdownItem>
+        <DropdownItem action={handleOpenEditor}>Изменить</DropdownItem>
+        <DropdownItem action={handleOpenPopup}>Удалить</DropdownItem>
       </Dropdown>
     </div>
   );

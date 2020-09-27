@@ -34,14 +34,23 @@
   color: lightgray;
 }
 
-.buttons {
+.handlers {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 }
 
-.cancel, .add {
+.buttons {
+  display: flex;
+}
+
+.loader {
+  width: 24px;
+  margin: calc(-38px + 6px) auto;
+}
+
+.cancel, .add, .disabled {
   padding: 10px;
   transition: .2s;
   border-radius: 5px;
@@ -66,4 +75,10 @@
 .add:hover {
   background-color: green;
   color: white;
+}
+
+.disabled {
+  background-color: green;
+  color: green;
+  cursor: initial;
 }

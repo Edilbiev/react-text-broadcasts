@@ -12,14 +12,20 @@
   box-sizing: border-box;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
-  font-size: 13px;
-  font-weight: lighter;
+.loader {
+  width: 24px;
+  height: 24px;
+  margin: calc(-48px + 12px) auto;
 }
 
-.button {
+.error {
+  color: red;
+  font-size: 13px;
+  font-weight: lighter;
+  margin-top: 60px;
+}
+
+.button, .button[disabled] {
   background-color: #1976d2;
   color: white;
   width: 100%;
@@ -28,6 +34,16 @@
   text-align: center;
   transition: .5s;
   box-shadow: grey 0 2px 2px 0;
+}
+
+.button[disabled] {
+  opacity: .6;
+  cursor: initial;
+  color: #1976d2;
+}
+
+.button[disabled]:hover {
+  background-color: #1976d2;
 }
 
 .button:hover {

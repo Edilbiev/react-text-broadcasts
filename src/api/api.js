@@ -24,3 +24,7 @@ export function del(path, params) {
 export function get(path, params) {
   return fetchRequest(path, "get", params);
 }
+
+export function patch(path, params) {
+  return fetchRequest(path, "patch", params);
+}

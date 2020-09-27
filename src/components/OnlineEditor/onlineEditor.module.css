@@ -1,13 +1,29 @@
-.broadcastsCreator {
+.background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  overflow-x: hidden;
+  background-color: #00000055;
+}
+
+.onlineEditor {
   border-radius: 10px;
-  box-shadow: 0 0 10px 0 whitesmoke;
+  box-shadow: 0 0 10px 0 grey;
   padding: 20px;
   background-color: white;
   margin-bottom: 20px;
   transition: .3s;
+  max-width: 1000px;
+  box-sizing: border-box;
 }
 
-.broadcastsCreator:hover {
+.onlineEditorCreator:hover {
   box-shadow: 0 0 10px 0 grey;
 }
 
@@ -39,7 +55,7 @@
   margin: calc(-38px + 8px) auto;
 }
 
-.cancel, .add {
+.cancel, .edit {
   padding: 10px;
   transition: .2s;
   border-radius: 5px;
@@ -56,7 +72,7 @@
   color: white;
 }
 
-.add {
+.edit {
   background-color: mediumseagreen;
   color: white;
 }
@@ -74,6 +90,4 @@
 .add[disabled]:hover {
   background-color: mediumseagreen;
 }
-
-
 

@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import DropdownMenu from "../DropdownMenu";
 import { postDeleted } from "../../redux/actions";
 import Popup from "../common/Popup";
+import PostEditor from "../PostEditor";
 
 function Post({ item, isAdmin }) {
   const dispatch = useDispatch();
@@ -23,8 +24,15 @@ function Post({ item, isAdmin }) {
   }, [embedHook]);
 
   const [popup, setPopup] = useState(false);
-  const handlePopup = () => setPopup(!popup);
-  const handleDelete = () => {
+  const handlePopup = (e) => {
+    setPopup(!popup);
+  };
+
+  const [editor, setEditor] = useState(false);
+  const handleEditor = () => setEditor(!editor);
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
     dispatch(postDeleted(id, item._id));
   };
 
@@ -37,7 +45,7 @@ function Post({ item, isAdmin }) {
     >
       <div className={s.time}>
         {dayjs(item.createdDate).format("HH:mm")}
-        {isAdmin ? <DropdownMenu handlePopup={handlePopup} /> : null}
+        {isAdmin ? <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} /> : null}
       </div>
       <div className={s.title}>{item.title}</div>
       <div className={s.content} ref={ref} />
@@ -46,6 +54,11 @@ function Post({ item, isAdmin }) {
         cancel={handlePopup}
         action={handleDelete}
         text={"Подтвердите действие"}
+      />
+      <PostEditor
+        item={item}
+        isOpened={editor}
+        cancel={handleEditor}
       />
     </div>
   );

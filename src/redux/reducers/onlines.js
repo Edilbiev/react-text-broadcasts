@@ -16,7 +16,8 @@ const mainEventsBarOpened =
 const initialState = {
   loading: false,
   items: [],
-  onlineCreating: false,
+  creating: false,
+  editing: false,
   deleting: false,
   reversed,
   postsCount,
@@ -78,7 +79,7 @@ export default function onlines(state = initialState, action) {
     case "online/create/started":
       return {
         ...state,
-        onlineCreating: true,
+        creating: true,
       }
 
     case "online/create/succeed":
@@ -88,7 +89,7 @@ export default function onlines(state = initialState, action) {
           action.payload,
           ...state.items,
         ],
-        onlineCreating: false,
+        creating: false,
       }
 
     case "online/delete/started":
@@ -105,6 +106,22 @@ export default function onlines(state = initialState, action) {
           ...state.items,
         ],
         deleting: false,
+      }
+
+    case "online/edit/started":
+      return {
+        ...state,
+        editing: true,
+      }
+
+    case "online/edit/succeed":
+      return {
+        ...state,
+        items: [
+          action.payload,
+          ...state.items,
+        ],
+        editing: false,
       }
 
     default:

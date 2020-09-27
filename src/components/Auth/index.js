@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userAuthorised } from "../../redux/actions";
 import s from "./auth.module.css";
 import { Redirect } from "react-router-dom";
+import Loader from "../common/Loader";
+import cl from "classnames";
 
 function Auth() {
   const dispatch = useDispatch();
@@ -29,6 +31,14 @@ function Auth() {
     setClicked(true);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleClick();
+    }
+  };
+
+  const emptyForms = login === "" || password === "";
+
   if(!loading && clicked) {
     if(authorized) {
       return <Redirect to="/admin" />;
@@ -46,19 +56,28 @@ function Auth() {
         value={login}
         onChange={handleChangeUsername}
         className={s.input}
+        onKeyDown={handleKeyDown}
       />
       <input
         placeholder="Введите пароль"
         value={password}
         onChange={handleChangePassword}
         className={s.input}
+        onKeyDown={handleKeyDown}
       />
       <div>
-        <button type="submit" onClick={handleClick} className={s.button} disabled={loading}>
+        <button
+          type="submit"
+          onClick={handleClick}
+          className={s.button}
+          disabled={loading || emptyForms}>
           Войти
         </button>
       </div>
-      <div>
+      <div className={s.loader}>
+        {loading && clicked && <Loader size="small"/>}
+      </div>
+      <div className={s.error}>
         {error && 'ошибка'}
       </div>
     </div>
