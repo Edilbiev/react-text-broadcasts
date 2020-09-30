@@ -17,6 +17,7 @@ function PostsPage() {
     dispatch(postsLoaded(id));
   }, [dispatch, id]);
 
+
   const mainEventsBarOpened = useSelector(({ onlines }) => {
     if (onlines.mainEventsBarOpened.hasOwnProperty(id)) {
       return onlines.mainEventsBarOpened[id];

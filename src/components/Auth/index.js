@@ -4,7 +4,6 @@ import { userAuthorised } from "../../redux/actions";
 import s from "./auth.module.css";
 import { Redirect } from "react-router-dom";
 import Loader from "../common/Loader";
-import cl from "classnames";
 
 function Auth() {
   const dispatch = useDispatch();

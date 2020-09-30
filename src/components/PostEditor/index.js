@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import cl from "classnames";
 import s from "./postEditor.module.css";
 import dayjs from "dayjs";
-import {Editor} from "react-draft-wysiwyg";
+import { Editor } from "react-draft-wysiwyg";
 import Switcher from "../Switcher";
 import Loader from "../common/Loader";
-import {useDispatch, useSelector} from "react-redux";
-import {ContentState, EditorState} from "draft-js";
+import { useDispatch, useSelector } from "react-redux";
+import { ContentState, EditorState } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
-import {postEdited} from "../../redux/actions";
+import { postEdited } from "../../redux/actions";
 
 function PostEditor({ item, isOpened, cancel }) {
   const dispatch = useDispatch();
@@ -19,7 +19,10 @@ function PostEditor({ item, isOpened, cancel }) {
 
   const blocksFromHtml = htmlToDraft(item.content);
   const { contentBlocks, entityMap } = blocksFromHtml;
-  const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap
+  );
   const editorState = EditorState.createWithContent(contentState);
 
   const [title, setTitle] = useState(item.title);
@@ -30,11 +33,11 @@ function PostEditor({ item, isOpened, cancel }) {
 
   useEffect(() => {
     if (isOpened) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.removeProperty("overflow")
+      document.body.style.removeProperty("overflow");
     }
-  })
+  });
 
   const [importance, setImportance] = useState(false);
   const handleSwitch = () => setImportance(!importance);
@@ -42,7 +45,7 @@ function PostEditor({ item, isOpened, cancel }) {
   // const [clicked, setClicked] = useState(false);
 
   if (!isOpened) {
-    return null
+    return null;
   }
 
   return (
@@ -52,14 +55,14 @@ function PostEditor({ item, isOpened, cancel }) {
           [s.importantPostCreator]: importance,
         })}
       >
-        <div className={s.time}>{dayjs(new Date()).format("HH:mm")}</div>
+        <div className={s.time}>{dayjs(item.createdDate).format("HH:mm")}</div>
         <div>
-        <textarea
-          className={s.title}
-          placeholder="Введите заголовок"
-          value={title}
-          onChange={handleChangeTitle}
-        />
+          <textarea
+            className={s.title}
+            placeholder="Введите заголовок"
+            value={title}
+            onChange={handleChangeTitle}
+          />
         </div>
         <div>
           <Editor

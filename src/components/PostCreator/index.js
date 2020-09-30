@@ -36,8 +36,15 @@ function PostCreator() {
   const [importance, setImportance] = useState(false);
   const handleSwitch = () => setImportance(!importance);
 
-  const handleClick = () => {
-    // editorRef.current.focus()
+  const [creatorOpened, setCreatorOpened] = useState(false);
+
+  const isEmpty = content.getCurrentContent().getPlainText().length === 0;
+
+  const setEditorReference = (ref) => !creatorOpened && ref?.focus();
+
+
+  const handlePostCreator = () => {
+    setCreatorOpened(false);
     setPostCreator(!postCreator);
   };
 
@@ -67,7 +74,7 @@ function PostCreator() {
   }
 
   if (!postCreator) {
-    return <CreatorButton handleClick={handleClick} text="Новый пост..." />;
+    return <CreatorButton handleClick={handlePostCreator} text="Новый пост..." />;
   }
 
   return (
@@ -89,12 +96,14 @@ function PostCreator() {
       </div>
       <div>
         <Editor
+          editorRef={setEditorReference}
           editorState={content}
           placeholder="Введите контент"
           toolbarClassName="toolbarClassName"
           wrapperClassName="wrapperClassName"
           editorClassName="editorClassName"
           onEditorStateChange={handleChangeContent}
+          onBlur={() => setCreatorOpened(true)}
         />
       </div>
       <div className={s.handlers}>
@@ -107,18 +116,15 @@ function PostCreator() {
         </div>
         <div className={s.buttons}>
           <div>
-            <button className={s.cancel} onClick={handleClick}>
+            <button className={s.cancel} onClick={handlePostCreator}>
               Отмена
             </button>
           </div>
           <div>
             <button
-              className={cl({
-                [s.add]: !creating,
-                [s.disabled]: creating,
-              })}
+              className={s.add}
               onClick={handleCreatePost}
-              disabled={creating}
+              disabled={creating || isEmpty}
             >
               Добавить
             </button>

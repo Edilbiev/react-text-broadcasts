@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch } from "react-router-dom";
 import { Editor } from "react-draft-wysiwyg";
@@ -9,7 +9,6 @@ import dayjs from "dayjs";
 import s from "./onlineCreator.module.css";
 import BroadcastCreatorButton from "../CreatorButton";
 import { onlineCreated } from "../../redux/actions";
-import cl from "classnames";
 import Loader from "../common/Loader";
 
 function OnlineCreator() {
@@ -34,7 +33,7 @@ function OnlineCreator() {
     setBroadcastCreator(!broadcastCreator);
   };
 
-  const isEmpty = content.getCurrentContent().getPlainText().length === 0
+  const isEmpty = content.getCurrentContent().getPlainText().length === 0;
 
   const handleAddBroadcast = () => {
     setClicked(true);
@@ -47,7 +46,6 @@ function OnlineCreator() {
   };
 
   const setEditorReference = (ref) => !creatorOpened && ref?.focus();
-
 
   if (!creating && clicked) {
     setTitle("");
@@ -101,9 +99,7 @@ function OnlineCreator() {
           >
             Добавить
           </button>
-          <div className={s.loader}>
-            {creating && <Loader size="small" />}
-          </div>
+          <div className={s.loader}>{creating && <Loader size="small" />}</div>
         </div>
       </div>
     </div>

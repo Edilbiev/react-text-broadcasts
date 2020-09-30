@@ -4,7 +4,7 @@
   padding: 20px;
   background-color: white;
   margin-bottom: 20px;
-  transition: .3s;
+  transition: 0.3s;
   border: 5px solid white;
 }
 
@@ -16,13 +16,15 @@
   box-shadow: 0 0 10px 0 grey;
 }
 
-.title, .title::placeholder {
+.title,
+.title::placeholder {
   font-size: 24px;
   font-weight: bold;
   color: black;
 }
 
-.content, .content::placeholder {
+.content,
+.content::placeholder {
   color: black;
   line-height: 34px;
   font-family: "PT Serif", serif;
@@ -50,9 +52,10 @@
   margin: calc(-38px + 6px) auto;
 }
 
-.cancel, .add, .disabled {
+.cancel,
+.add {
   padding: 10px;
-  transition: .2s;
+  transition: 0.2s;
   border-radius: 5px;
 }
 
@@ -62,13 +65,13 @@
   color: firebrick;
 }
 
-.add {
-  background-color: mediumseagreen;
+.cancel:hover {
+  background-color: firebrick;
   color: white;
 }
 
-.cancel:hover {
-  background-color: firebrick;
+.add {
+  background-color: mediumseagreen;
   color: white;
 }
 
@@ -77,8 +80,11 @@
   color: white;
 }
 
-.disabled {
-  background-color: green;
-  color: green;
+.add[disabled] {
+  opacity: 0.6;
   cursor: initial;
+}
+
+.add[disabled]:hover {
+  background-color: mediumseagreen;
 }

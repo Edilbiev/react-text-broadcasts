@@ -9,6 +9,7 @@ export default function useEmbed(item) {
     const splittedContent = item.content.split(/(:?\s)(https?:[^\s<]+)/);
     console.log(splittedContent)
     const divForContent = document.createElement("div");
+    divForContent.style = {width: "500px", margin: "auto"}
 
     splittedContent.forEach((part) => {
       if (isLink(part)) {
