@@ -1,15 +1,11 @@
-import { del, get, patch, post } from "../api/api";
+import {del, fetchRequest, get, patch, post} from "../api/api";
 
 export function onlinesLoaded() {
   return (dispatch) => {
     dispatch({ type: "onlines/load/started" });
 
-    fetch("http://151.248.117.7:5005/api/onlines")
-      .then((response) => response.json())
+    fetchRequest("/onlines")
       .then((json) => {
-        // if(json.status === "unauthorized") {
-        //
-        // }
         dispatch({
           type: "onlines/load/succeed",
           payload: json,
@@ -35,20 +31,20 @@ export function onlineDeleted(onlineId) {
   return (dispatch) => {
     dispatch({ type: "online/delete/started" });
 
-    del("/onlines", onlineId).then((json) => {
+    del(`/onlines/${onlineId}`).then((json) => {
       dispatch({
         type: "online/delete/succeed",
-        payload: json,
+        payload: onlineId,
       });
     });
   };
 }
 
-export function onlineEdited(onlineId) {
+export function onlineEdited(onlineId, title, introtext) {
   return (dispatch) => {
     dispatch({ type: "online/edit/started" });
 
-    patch("/onlines", onlineId).then((json) => {
+    patch(`/onlines/${onlineId}`, { title, introtext }).then((json) => {
       dispatch({
         type: "online/edit/succeed",
         payload: json,
@@ -60,19 +56,42 @@ export function onlineEdited(onlineId) {
 export function postsLoaded(id) {
   return (dispatch) => {
     dispatch({
-      type: "live/load/started",
+      type: "posts/load/started",
       payload: id,
     });
 
-    fetch(`http://151.248.117.7:5005/api/onlines/${id}`)
-      .then((response) => response.json())
+    fetchRequest(`/onlines/${id}`)
       .then((json) => {
         dispatch({
-          type: "live/load/succeed",
+          type: "posts/load/succeed",
           payload: json,
         });
       });
   };
+}
+
+export function backgroundPostsLoaded(id) {
+  return (dispatch, getState) => {
+    const { items } = getState().posts;
+
+    fetchRequest(`/onlines/${id}`)
+      .then((json) => {
+        const lastPostTime = items[items.length - 1].createdDate;
+
+        const backgroundPosts = json.filter((item) => new Date(item.createdDate) > new Date(lastPostTime))
+
+        dispatch({
+          type: "backposts/load/succeed",
+          payload: backgroundPosts,
+        });
+      });
+  };
+}
+
+export function backpostsAppended() {
+  return {
+    type: "backposts/append/succeed"
+  }
 }
 
 export function postCreated(id, title, content, important) {
@@ -88,22 +107,28 @@ export function postCreated(id, title, content, important) {
   };
 }
 
-export function postDeleted(id, postId) {
+export function postDeleted(postId) {
   return (dispatch) => {
     dispatch({ type: "post/delete/started" });
 
-    del(`/post/${id}`, postId).then((json) => {
-      dispatch({ type: "post/delete/succeed" });
+    del(`/post/${postId}`).then((json) => {
+      dispatch({
+        type: "post/delete/succeed",
+        payload: postId,
+      });
     });
   };
 }
 
-export function postEdited(id, postId) {
+export function postEdited(postId, title, content, important) {
   return (dispatch) => {
     dispatch({ type: "post/edit/started" });
 
-    patch(`/post/${id}`, postId).then((json) => {
-      dispatch({ type: "post/edit/succeed" });
+    patch(`/post/${postId}`, { title, content, important }).then((json) => {
+      dispatch({
+        type: "post/edit/succeed",
+        payload: json,
+      });
     });
   };
 }

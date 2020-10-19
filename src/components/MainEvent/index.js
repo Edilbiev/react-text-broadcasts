@@ -5,8 +5,8 @@ import s from "./mainEvent.module.css";
 function MainEvent({ item }) {
   const handleScroll = () => {
     const targetDOMElement = document.getElementById(item._id);
-    targetDOMElement.scrollIntoView({block: "center", behavior: "smooth"})
-  }
+    targetDOMElement.scrollIntoView({ block: "center", behavior: "smooth" });
+  };
 
   if (!item.hasOwnProperty("title")) {
     return null;
@@ -15,11 +15,10 @@ function MainEvent({ item }) {
   return (
     <div className={s.mainEvent} onClick={handleScroll}>
       <div className={s.time}>
-        <div className={s.checkpoint} />{dayjs(item.postData).format("HH:mm")}
+        <div className={s.checkpoint} />
+        {dayjs(item.createdDate).format("HH:mm")}
       </div>
-      <div className={s.text}>
-        {item.title}
-      </div>
+      <div className={s.text}>{item.title}</div>
     </div>
   );
 }

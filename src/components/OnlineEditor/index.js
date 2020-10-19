@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import s from "./onlineEditor.module.css";
 import dayjs from "dayjs";
 import { Editor } from "react-draft-wysiwyg";
 import Loader from "../common/Loader";
-import htmlToDraft from 'html-to-draftjs';
-import { EditorState, ContentState } from 'draft-js';
+import htmlToDraft from "html-to-draftjs";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
 import { useDispatch, useSelector } from "react-redux";
 import { onlineEdited } from "../../redux/actions";
+import draftToHtml from "draftjs-to-html";
 
 function OnlineEditor({ isOpened, online, cancel }) {
   const dispatch = useDispatch();
@@ -14,7 +15,10 @@ function OnlineEditor({ isOpened, online, cancel }) {
 
   const blocksFromHtml = htmlToDraft(online.introtext);
   const { contentBlocks, entityMap } = blocksFromHtml;
-  const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+  const contentState = ContentState.createFromBlockArray(
+    contentBlocks,
+    entityMap
+  );
   const editorState = EditorState.createWithContent(contentState);
 
   const [title, setTitle] = useState(online.title);
@@ -23,35 +27,49 @@ function OnlineEditor({ isOpened, online, cancel }) {
   const [content, setContent] = useState(editorState);
   const handleChangeContent = (editorState) => setContent(editorState);
 
-  // const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const handleEditOnline = () => {
-    dispatch(onlineEdited(online._id));
+    setClicked(true)
+    dispatch(
+      onlineEdited(
+        online._id,
+        title,
+        draftToHtml(convertToRaw(content.getCurrentContent()))
+      )
+    );
   };
 
   useEffect(() => {
     if (isOpened) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.removeProperty("overflow")
+      document.body.style.removeProperty("overflow");
     }
-  })
+  });
+
+  if (!editing && clicked) {
+    cancel();
+    setClicked(false);
+  }
 
   if (!isOpened) {
-    return null
+    return null;
   }
 
   return (
     <div className={s.background}>
       <div className={s.onlineEditor}>
-        <div className={s.time}>{dayjs(online.startedDate).format("HH:mm")}</div>
+        <div className={s.time}>
+          {dayjs(online.startedDate).format("HH:mm")}
+        </div>
         <div>
-        <textarea
-          className={s.title}
-          placeholder="Введите заголовок"
-          value={title}
-          onChange={handleChangeTitle}
-        />
+          <textarea
+            className={s.title}
+            placeholder="Введите заголовок"
+            value={title}
+            onChange={handleChangeTitle}
+          />
         </div>
         <div>
           <Editor

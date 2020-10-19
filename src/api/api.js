@@ -1,10 +1,10 @@
 export function fetchRequest(path, method, params) {
-  const ip = "http://151.248.117.7:5005/api";
+  const ip = "https://api.intocode.ru:5005/api";
   return fetch(ip + path, {
     method,
     headers: {
       "x-auth-token": localStorage.getItem("token"),
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
     withCredentials: true,
@@ -26,5 +26,5 @@ export function get(path, params) {
 }
 
 export function patch(path, params) {
-  return fetchRequest(path, "patch", params);
+  return fetchRequest(path, "PATCH", params);
 }

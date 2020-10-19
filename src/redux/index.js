@@ -7,8 +7,8 @@ import auth from "./reducers/auth";
 
 const logger = createLogger({
   diff: true,
-  collapsed: true
-})
+  collapsed: true,
+});
 
 const reducer = combineReducers({ onlines, posts, auth });
 

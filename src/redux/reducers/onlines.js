@@ -80,49 +80,46 @@ export default function onlines(state = initialState, action) {
       return {
         ...state,
         creating: true,
-      }
+      };
 
     case "online/create/succeed":
       return {
         ...state,
-        items: [
-          action.payload,
-          ...state.items,
-        ],
+        items: [action.payload, ...state.items],
         creating: false,
-      }
+      };
 
     case "online/delete/started":
       return {
         ...state,
         deleting: true,
-      }
+      };
 
     case "online/delete/succeed":
       return {
         ...state,
-        items: [
-          action.payload,
-          ...state.items,
-        ],
+        items: state.items.filter((item) => item._id !== action.payload),
         deleting: false,
-      }
+      };
 
     case "online/edit/started":
       return {
         ...state,
         editing: true,
-      }
+      };
 
     case "online/edit/succeed":
       return {
         ...state,
-        items: [
-          action.payload,
-          ...state.items,
-        ],
+        items: state.items.map((item) => {
+          if (item._id === action.payload._id) {
+            return action.payload;
+          }
+
+          return item;
+        }),
         editing: false,
-      }
+      };
 
     default:
       return state;

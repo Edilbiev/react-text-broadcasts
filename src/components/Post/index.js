@@ -12,8 +12,6 @@ import PostEditor from "../PostEditor";
 
 function Post({ item, isAdmin }) {
   const dispatch = useDispatch();
-  const id = useParams().id;
-
   const ref = useRef(null);
   const embedHook = useEmbed(item);
 
@@ -33,7 +31,7 @@ function Post({ item, isAdmin }) {
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    dispatch(postDeleted(id, item._id));
+    dispatch(postDeleted(item._id));
   };
 
   return (
@@ -45,21 +43,20 @@ function Post({ item, isAdmin }) {
     >
       <div className={s.time}>
         {dayjs(item.createdDate).format("HH:mm")}
-        {isAdmin ? <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} /> : null}
+        {isAdmin ? (
+          <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} />
+        ) : null}
       </div>
       <div className={s.title}>{item.title}</div>
       <div className={s.content} ref={ref} />
+
       <Popup
         isOpened={popup}
         cancel={handlePopup}
         action={handleDelete}
         text={"Подтвердите действие"}
       />
-      <PostEditor
-        item={item}
-        isOpened={editor}
-        cancel={handleEditor}
-      />
+      <PostEditor item={item} isOpened={editor} cancel={handleEditor} />
     </div>
   );
 }

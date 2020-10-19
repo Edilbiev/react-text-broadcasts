@@ -4,9 +4,9 @@
 
 .small {
   width: 24px;
-  filter: invert(98%) sepia(0%) saturate(3255%) hue-rotate(228deg) brightness(120%) contrast(101%);
+  filter: invert(98%) sepia(0%) saturate(3255%) hue-rotate(228deg)
+    brightness(120%) contrast(101%);
 }
-
 
 .loader {
   animation-name: spin;

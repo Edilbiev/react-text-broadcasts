@@ -15,7 +15,7 @@ function Pages() {
         <Route path="/auth">
           <AuthPage />
         </Route>
-        <ProtectedRoute path="/admin"/>
+        <ProtectedRoute path="/admin" />
         <Route path="/:id">
           <PostsPage />
         </Route>

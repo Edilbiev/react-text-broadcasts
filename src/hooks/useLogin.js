@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import { get } from "../api/api";
 
 export default function useLogin() {
@@ -13,7 +13,7 @@ export default function useLogin() {
 
       setFetching(false);
     });
-  }, [setAdmin, setFetching])
+  }, [setAdmin, setFetching]);
 
   return useMemo(() => [admin, fetching], [admin, fetching]);
 }

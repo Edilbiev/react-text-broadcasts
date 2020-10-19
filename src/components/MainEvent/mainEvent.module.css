@@ -16,7 +16,7 @@
 }
 
 .mainEvent:hover .text {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .time {
@@ -32,12 +32,10 @@
   position: absolute;
   left: -6px;
   cursor: pointer;
-  transition: .7s;
+  transition: 0.7s;
 }
 
 .text {
   color: black;
-  transition: .7s;
+  transition: 0.7s;
 }
-
-

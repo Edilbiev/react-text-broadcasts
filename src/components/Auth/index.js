@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userAuthorised } from "../../redux/actions";
 import s from "./auth.module.css";
@@ -26,7 +26,7 @@ function Auth() {
   };
 
   const handleClick = () => {
-    dispatch(userAuthorised(login, password))
+    dispatch(userAuthorised(login, password));
     setClicked(true);
   };
 
@@ -38,8 +38,8 @@ function Auth() {
 
   const emptyForms = login === "" || password === "";
 
-  if(!loading && clicked) {
-    if(authorized) {
+  if (!loading && clicked) {
+    if (authorized) {
       return <Redirect to="/admin" />;
     } else {
       setError(true);
@@ -69,16 +69,15 @@ function Auth() {
           type="submit"
           onClick={handleClick}
           className={s.button}
-          disabled={loading || emptyForms}>
+          disabled={loading || emptyForms}
+        >
           Войти
         </button>
       </div>
       <div className={s.loader}>
-        {loading && clicked && <Loader size="small"/>}
+        {loading && clicked && <Loader size="small" />}
       </div>
-      <div className={s.error}>
-        {error && 'ошибка'}
-      </div>
+      <div className={s.error}>{error && "ошибка"}</div>
     </div>
   );
 }

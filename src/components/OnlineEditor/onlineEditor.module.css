@@ -18,7 +18,7 @@
   padding: 20px;
   background-color: white;
   margin-bottom: 20px;
-  transition: .3s;
+  transition: 0.3s;
   max-width: 1000px;
   box-sizing: border-box;
 }
@@ -27,13 +27,15 @@
   box-shadow: 0 0 10px 0 grey;
 }
 
-.title, .title::placeholder {
+.title,
+.title::placeholder {
   font-size: 24px;
   font-weight: bold;
   color: black;
 }
 
-.content, .content::placeholder {
+.content,
+.content::placeholder {
   color: black;
   line-height: 34px;
   font-family: "PT Serif", serif;
@@ -55,9 +57,10 @@
   margin: calc(-38px + 8px) auto;
 }
 
-.cancel, .edit {
+.cancel,
+.edit {
   padding: 10px;
-  transition: .2s;
+  transition: 0.2s;
   border-radius: 5px;
 }
 
@@ -83,11 +86,10 @@
 }
 
 .add[disabled] {
-  opacity: .6;
+  opacity: 0.6;
   cursor: initial;
 }
 
 .add[disabled]:hover {
   background-color: mediumseagreen;
 }
-

@@ -6,6 +6,7 @@ import { orderReversed } from "../../redux/actions";
 import Switcher from "../Switcher";
 import PostsSliceButtons from "../PostsSliceButtons";
 import s from "./posts.module.css";
+import BackpostsLoader from "../BackpostsLoader";
 
 function Posts() {
   const dispatch = useDispatch();
@@ -51,7 +52,6 @@ function Posts() {
     reverseOrder();
   };
 
-
   return (
     <div className={s.post}>
       <div className={s.handlers}>
@@ -62,10 +62,14 @@ function Posts() {
           onSwitchedOff={handleSwitch}
         />
       </div>
+       <BackpostsLoader />
       <div>
-        {items.map((item) => (
-          <Post item={item} key={item._id} />
-        ))}
+        {items.map((item) => {
+          if (item.separate) {
+            return <div className={s.newPostsBorder} key={item._id}>{item.content}</div>
+          }
+          return <Post item={item} key={item._id}/>
+        })}
       </div>
     </div>
   );

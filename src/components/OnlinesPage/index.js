@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Onlines from "../Onlines";
-import {onlinesLoaded} from "../../redux/actions";
+import { onlinesLoaded } from "../../redux/actions";
 import Loader from "../common/Loader";
 import s from "../PostsPage/postsPage.module.css";
 

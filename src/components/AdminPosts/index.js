@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { postsLoaded } from "../../redux/actions";
+import { backgroundPostsLoaded, postsLoaded } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post";
@@ -15,11 +15,11 @@ function AdminPosts({ isAdmin }) {
     dispatch(postsLoaded(id));
   }, [dispatch, id]);
 
-  const items = useSelector((state) => state.posts.items);
-
-  // const items = useSelector(state => {
-  //   return [...state.posts.items].sort((a,b) => new Date(b.createdDate) - new Date(a.createdDate))
-  // });
+  const items = useSelector((state) =>
+    state.posts.items.sort(
+      (a, b) => new Date(b.createdDate) - new Date(a.createdDate)
+    )
+  );
 
   const loading = useSelector((state) => state.posts.loading);
 
@@ -29,7 +29,7 @@ function AdminPosts({ isAdmin }) {
         <Loader size="large" />
       </div>
     );
-  };
+  }
 
   return (
     <div>

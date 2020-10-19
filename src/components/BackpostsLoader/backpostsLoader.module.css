@@ -1,0 +1,8 @@
+.backpostsLoader {
+  padding: 10px;
+  cursor: pointer;
+  border-top: 1px solid firebrick;
+  border-bottom: 1px solid firebrick;
+  text-align: center;
+  margin-bottom: 10px;
+}

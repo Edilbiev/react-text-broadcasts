@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import s from "./postsPage.module.css";
 import MainEventsButton from "../MainEventsButton";
-import { mainEventsBarHandled, postsLoaded } from "../../redux/actions";
+import {backgroundPostsLoaded, mainEventsBarHandled, postsLoaded} from "../../redux/actions";
 import { CSSTransition } from "react-transition-group";
 import Loader from "../common/Loader";
 
@@ -17,6 +17,11 @@ function PostsPage() {
     dispatch(postsLoaded(id));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    setInterval(() => {
+      dispatch(backgroundPostsLoaded(id));
+    }, 5000)
+  }, [dispatch, id]);
 
   const mainEventsBarOpened = useSelector(({ onlines }) => {
     if (onlines.mainEventsBarOpened.hasOwnProperty(id)) {
@@ -42,7 +47,9 @@ function PostsPage() {
 
   return (
     <div className={s.postsPage}>
-      <Posts />
+      <div className={s.posts}>
+        <Posts />
+      </div>
       <MainEventsButton handleMainEventsBar={handleMainEventsBar} />
       <CSSTransition
         in={mainEventsBarOpened}

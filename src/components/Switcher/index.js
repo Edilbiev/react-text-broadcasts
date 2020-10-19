@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import s from "./button.module.css";
 import cl from "classnames";
 
@@ -24,7 +24,7 @@ function Switcher({ defaultValue, onSwitchedOn, onSwitchedOff }) {
           [s.backgroundOn]: isOn,
         })}
       >
-        <div className={s.round}/>
+        <div className={s.round} />
       </div>
     </div>
   );

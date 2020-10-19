@@ -25,7 +25,7 @@ function Onlines({ online, isAdmin }) {
 
   const handleDelete = (e) => {
     e.stopPropagation();
-    dispatch(onlineDeleted(online._id));
+    dispatch(onlineDeleted(online._id, online.title, online.introtext));
   };
 
   const [editor, setEditor] = useState(false);
@@ -55,11 +55,7 @@ function Onlines({ online, isAdmin }) {
         action={handleDelete}
         text={"Подтвердите действие"}
       />
-      <OnlineEditor
-        online={online}
-        isOpened={editor}
-        cancel={handleEditor}
-      />
+      <OnlineEditor online={online} isOpened={editor} cancel={handleEditor} />
     </div>
   );
 }

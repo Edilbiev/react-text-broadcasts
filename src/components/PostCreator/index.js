@@ -14,6 +14,7 @@ import Switcher from "../Switcher";
 import Loader from "../common/Loader";
 
 function PostCreator() {
+
   const id = useParams().id;
   const dispatch = useDispatch();
   const creating = useSelector((state) => state.posts.creating);
@@ -27,10 +28,6 @@ function PostCreator() {
 
   const [clicked, setClicked] = useState(false);
 
-  // const setEditorRef = (ref) => {
-  //   this.editorReferece = ref;
-  //   ref.focus();
-  // }
   const editorRef = useRef(null);
 
   const [importance, setImportance] = useState(false);
@@ -38,24 +35,23 @@ function PostCreator() {
 
   const [creatorOpened, setCreatorOpened] = useState(false);
 
-  const isEmpty = content.getCurrentContent().getPlainText().length === 0;
-
   const setEditorReference = (ref) => !creatorOpened && ref?.focus();
-
 
   const handlePostCreator = () => {
     setCreatorOpened(false);
     setPostCreator(!postCreator);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      handleCreatePost();
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.keyCode === 13) {
+  //     handleCreatePost();
+  //   }
+  // };
+
+  // const isEmpty = content.getCurrentContent().getPlainText().length === 0;
 
   const handleCreatePost = () => {
-    setClicked(true)
+    setClicked(true);
     dispatch(
       postCreated(
         id,
@@ -70,11 +66,13 @@ function PostCreator() {
     setTitle("");
     setContent("");
     setImportance(false);
-    setClicked(false)
+    setClicked(false);
   }
 
   if (!postCreator) {
-    return <CreatorButton handleClick={handlePostCreator} text="Новый пост..." />;
+    return (
+      <CreatorButton handleClick={handlePostCreator} text="Новый пост..." />
+    );
   }
 
   return (
@@ -91,7 +89,6 @@ function PostCreator() {
           placeholder="Введите заголовок"
           value={title}
           onChange={handleChangeTitle}
-          onKeyDown={handleKeyDown}
         />
       </div>
       <div>
@@ -124,7 +121,7 @@ function PostCreator() {
             <button
               className={s.add}
               onClick={handleCreatePost}
-              disabled={creating || isEmpty}
+              disabled={creating}
             >
               Добавить
             </button>

@@ -6,16 +6,15 @@ import { Editor } from "react-draft-wysiwyg";
 import Switcher from "../Switcher";
 import Loader from "../common/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { ContentState, EditorState } from "draft-js";
+import { ContentState, convertToRaw, EditorState } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
 import { postEdited } from "../../redux/actions";
+import draftToHtml from "draftjs-to-html";
 
 function PostEditor({ item, isOpened, cancel }) {
   const dispatch = useDispatch();
   const editing = useSelector((state) => state.posts.editing);
   const [postEditor, setPostCEditor] = useState(false);
-
-  const handleEdit = () => dispatch(postEdited(item._id));
 
   const blocksFromHtml = htmlToDraft(item.content);
   const { contentBlocks, entityMap } = blocksFromHtml;
@@ -31,6 +30,8 @@ function PostEditor({ item, isOpened, cancel }) {
   const [content, setContent] = useState(editorState);
   const handleChangeContent = (editorState) => setContent(editorState);
 
+  const [clicked, setClicked] = useState(false);
+
   useEffect(() => {
     if (isOpened) {
       document.body.style.overflow = "hidden";
@@ -42,7 +43,15 @@ function PostEditor({ item, isOpened, cancel }) {
   const [importance, setImportance] = useState(false);
   const handleSwitch = () => setImportance(!importance);
 
-  // const [clicked, setClicked] = useState(false);
+  const handleEdit = () =>
+    dispatch(
+      postEdited(
+        item._id,
+        title,
+        draftToHtml(convertToRaw(content.getCurrentContent())),
+        importance
+      )
+    );
 
   if (!isOpened) {
     return null;

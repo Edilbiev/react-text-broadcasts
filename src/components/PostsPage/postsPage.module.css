@@ -8,3 +8,7 @@
   margin: calc(50vh - 25px) auto;
 }
 
+.posts {
+  flex: 1;
+  width: 100%;
+}

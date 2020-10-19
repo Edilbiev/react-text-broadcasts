@@ -1,9 +1,11 @@
-import React from 'react';
-import s from './dropdown.module.css'
+import React from "react";
+import s from "./dropdown.module.css";
 
 function DropdownItem({ children, action }) {
   return (
-    <div className={s.dropdownItem} onClick={action}>{children}</div>
+    <div className={s.dropdownItem} onClick={action}>
+      {children}
+    </div>
   );
 }
 

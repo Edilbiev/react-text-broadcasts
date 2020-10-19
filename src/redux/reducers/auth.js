@@ -23,7 +23,7 @@ export default function auth(state = initialState, action) {
         ...state,
         jwt: action.payload,
         loading: false,
-        authorized: true
+        authorized: true,
       };
 
     case "auth/process/failed":
@@ -37,15 +37,14 @@ export default function auth(state = initialState, action) {
       return {
         ...state,
         fetching: true,
-      }
+      };
 
     case "autologin/receive/succeed":
       return {
         ...state,
         fetching: false,
         isAdmin: action.payload.status === "success",
-      }
-
+      };
 
     default:
       return state;

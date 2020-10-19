@@ -18,4 +18,4 @@ export default function defineSocialMedia(url) {
     default:
       return undefined;
   }
-};
+}
