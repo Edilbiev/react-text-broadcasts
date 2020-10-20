@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { backgroundPostsLoaded, postsLoaded } from "../../redux/actions";
+import { postsLoaded } from "../../redux/actions";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post";

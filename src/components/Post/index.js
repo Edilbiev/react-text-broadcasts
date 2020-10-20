@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import cl from "classnames";
 import useEmbed from "../../hooks/useEmbed";
@@ -9,6 +8,8 @@ import DropdownMenu from "../DropdownMenu";
 import { postDeleted } from "../../redux/actions";
 import Popup from "../common/Popup";
 import PostEditor from "../PostEditor";
+import Calendar from 'dayjs/plugin/calendar';
+dayjs.extend(Calendar);
 
 function Post({ item, isAdmin }) {
   const dispatch = useDispatch();
@@ -42,7 +43,12 @@ function Post({ item, isAdmin }) {
       })}
     >
       <div className={s.time}>
-        {dayjs(item.createdDate).format("HH:mm")}
+        {dayjs(item.createdDate).calendar(null,{
+          sameDay: '[Сегодня] HH:mm',
+          lastDay: '[Вчера] HH:mm',
+          lastWeek: 'dddd [в] HH:mm',
+          sameElse: 'DD/MM/YYYY'
+          })}
         {isAdmin ? (
           <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} />
         ) : null}

@@ -12,7 +12,7 @@
   background-color: #00000055;
 }
 
-.postCreator {
+.postEditor {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 grey;
   padding: 20px;
@@ -24,11 +24,11 @@
   box-sizing: border-box;
 }
 
-.importantPostCreator {
+.importantPostEditor {
   border: 5px solid firebrick;
 }
 
-.postCreator:hover {
+.postEditor:hover {
   box-shadow: 0 0 10px 0 grey;
 }
 

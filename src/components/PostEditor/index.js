@@ -60,8 +60,8 @@ function PostEditor({ item, isOpened, cancel }) {
   return (
     <div className={s.background}>
       <div
-        className={cl(s.postCreator, {
-          [s.importantPostCreator]: importance,
+        className={cl(s.postEditor, {
+          [s.importantPostEditor]: importance,
         })}
       >
         <div className={s.time}>{dayjs(item.createdDate).format("HH:mm")}</div>

@@ -1,6 +1,6 @@
 .app {
   font-family: "Open Sans", sans-serif;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 30px 0;
   margin: auto;
 }
@@ -24,6 +24,7 @@ button {
   line-height: 34px;
   font-family: "PT Serif", serif;
 }
+
 
 /*.transition-enter {*/
 /*  opacity: 0;*/
