@@ -30,7 +30,7 @@ function OnlineEditor({ isOpened, online, cancel }) {
   const [clicked, setClicked] = useState(false);
 
   const handleEditOnline = () => {
-    setClicked(true)
+    setClicked(true);
     dispatch(
       onlineEdited(
         online._id,

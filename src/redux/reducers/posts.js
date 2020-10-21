@@ -79,15 +79,15 @@ export default function broadcasts(state = initialState, action) {
     case "backposts/load/started":
       return {
         ...state,
-          backLoading: true
-      }
+        backLoading: true,
+      };
 
     case "backposts/load/succeed":
       return {
         ...state,
         temp: action.payload,
         backLoading: false,
-      }
+      };
 
     case "backposts/append/succeed":
       return {
@@ -98,8 +98,7 @@ export default function broadcasts(state = initialState, action) {
           infoMessage,
           ...state.temp,
         ],
-      }
-
+      };
 
     default:
       return state;

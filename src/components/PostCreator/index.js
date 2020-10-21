@@ -14,7 +14,6 @@ import Switcher from "../Switcher";
 import Loader from "../common/Loader";
 
 function PostCreator() {
-
   const id = useParams().id;
   const dispatch = useDispatch();
   const creating = useSelector((state) => state.posts.creating);

@@ -1,16 +1,15 @@
-import {del, fetchRequest, get, patch, post} from "../api/api";
+import { del, fetchRequest, get, patch, post } from "../api/api";
 
 export function onlinesLoaded() {
   return (dispatch) => {
     dispatch({ type: "onlines/load/started" });
 
-    fetchRequest("/onlines")
-      .then((json) => {
-        dispatch({
-          type: "onlines/load/succeed",
-          payload: json,
-        });
+    fetchRequest("/onlines").then((json) => {
+      dispatch({
+        type: "onlines/load/succeed",
+        payload: json,
       });
+    });
   };
 }
 
@@ -60,13 +59,12 @@ export function postsLoaded(id) {
       payload: id,
     });
 
-    fetchRequest(`/onlines/${id}`)
-      .then((json) => {
-        dispatch({
-          type: "posts/load/succeed",
-          payload: json,
-        });
+    fetchRequest(`/onlines/${id}`).then((json) => {
+      dispatch({
+        type: "posts/load/succeed",
+        payload: json,
       });
+    });
   };
 }
 
@@ -74,24 +72,25 @@ export function backgroundPostsLoaded(id) {
   return (dispatch, getState) => {
     const { items } = getState().posts;
 
-    fetchRequest(`/onlines/${id}`)
-      .then((json) => {
-        const lastPostTime = items[items.length - 1].createdDate;
+    fetchRequest(`/onlines/${id}`).then((json) => {
+      const lastPostTime = items[items.length - 1].createdDate;
 
-        const backgroundPosts = json.filter((item) => new Date(item.createdDate) > new Date(lastPostTime))
+      const backgroundPosts = json.filter(
+        (item) => new Date(item.createdDate) > new Date(lastPostTime)
+      );
 
-        dispatch({
-          type: "backposts/load/succeed",
-          payload: backgroundPosts,
-        });
+      dispatch({
+        type: "backposts/load/succeed",
+        payload: backgroundPosts,
       });
+    });
   };
 }
 
 export function backpostsAppended() {
   return {
-    type: "backposts/append/succeed"
-  }
+    type: "backposts/append/succeed",
+  };
 }
 
 export function postCreated(id, title, content, important) {

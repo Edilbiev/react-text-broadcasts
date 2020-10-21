@@ -62,13 +62,17 @@ function Posts() {
           onSwitchedOff={handleSwitch}
         />
       </div>
-       <BackpostsLoader />
+      <BackpostsLoader />
       <div>
         {items.map((item) => {
           if (item.separate) {
-            return <div className={s.newPostsBorder} key={item._id}>{item.content}</div>
+            return (
+              <div className={s.newPostsBorder} key={item._id}>
+                {item.content}
+              </div>
+            );
           }
-          return <Post item={item} key={item._id}/>
+          return <Post item={item} key={item._id} />;
         })}
       </div>
     </div>

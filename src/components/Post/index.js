@@ -8,7 +8,7 @@ import DropdownMenu from "../DropdownMenu";
 import { postDeleted } from "../../redux/actions";
 import Popup from "../common/Popup";
 import PostEditor from "../PostEditor";
-import Calendar from 'dayjs/plugin/calendar';
+import Calendar from "dayjs/plugin/calendar";
 dayjs.extend(Calendar);
 
 function Post({ item, isAdmin }) {
@@ -43,12 +43,12 @@ function Post({ item, isAdmin }) {
       })}
     >
       <div className={s.time}>
-        {dayjs(item.createdDate).calendar(null,{
-          sameDay: '[Сегодня] HH:mm',
-          lastDay: '[Вчера] HH:mm',
-          lastWeek: 'dddd [в] HH:mm',
-          sameElse: 'DD/MM/YYYY'
-          })}
+        {dayjs(item.createdDate).calendar(null, {
+          sameDay: "[Сегодня] HH:mm",
+          lastDay: "[Вчера] HH:mm",
+          lastWeek: "dddd HH:mm",
+          sameElse: "DD/MM/YYYY",
+        })}
         {isAdmin ? (
           <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} />
         ) : null}

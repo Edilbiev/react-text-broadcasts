@@ -25,7 +25,6 @@ button {
   font-family: "PT Serif", serif;
 }
 
-
 /*.transition-enter {*/
 /*  opacity: 0;*/
 /*  transform: translate(100%);*/
@@ -54,11 +53,11 @@ button {
   transition: 0.3s;
 }
 .transition-enter-active {
-  width: 100%;
+  width: 300px;
   overflow-x: auto;
 }
 .transition-exit {
-  width: 100%;
+  width: 300px;
   overflow-x: auto;
 }
 .transition-exit-active {

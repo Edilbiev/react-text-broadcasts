@@ -14,7 +14,6 @@ import draftToHtml from "draftjs-to-html";
 function PostEditor({ item, isOpened, cancel }) {
   const dispatch = useDispatch();
   const editing = useSelector((state) => state.posts.editing);
-  const [postEditor, setPostCEditor] = useState(false);
 
   const blocksFromHtml = htmlToDraft(item.content);
   const { contentBlocks, entityMap } = blocksFromHtml;
@@ -29,8 +28,6 @@ function PostEditor({ item, isOpened, cancel }) {
 
   const [content, setContent] = useState(editorState);
   const handleChangeContent = (editorState) => setContent(editorState);
-
-  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     if (isOpened) {

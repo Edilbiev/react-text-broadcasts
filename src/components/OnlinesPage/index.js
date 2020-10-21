@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Onlines from "../Onlines";
+import Online from "../Online";
 import { onlinesLoaded } from "../../redux/actions";
 import Loader from "../common/Loader";
 import s from "../PostsPage/postsPage.module.css";
@@ -26,7 +26,7 @@ function OnlinesPage() {
   return (
     <>
       {onlines.map((online) => (
-        <Onlines online={online} key={online._id} />
+        <Online online={online} key={online._id} />
       ))}
     </>
   );

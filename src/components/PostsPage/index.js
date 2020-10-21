@@ -5,7 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import s from "./postsPage.module.css";
 import MainEventsButton from "../MainEventsButton";
-import {backgroundPostsLoaded, mainEventsBarHandled, postsLoaded} from "../../redux/actions";
+import {
+  backgroundPostsLoaded,
+  mainEventsBarHandled,
+  postsLoaded,
+} from "../../redux/actions";
 import { CSSTransition } from "react-transition-group";
 import Loader from "../common/Loader";
 
@@ -20,7 +24,7 @@ function PostsPage() {
   useEffect(() => {
     setInterval(() => {
       dispatch(backgroundPostsLoaded(id));
-    }, 5000)
+    }, 20000);
   }, [dispatch, id]);
 
   const mainEventsBarOpened = useSelector(({ onlines }) => {

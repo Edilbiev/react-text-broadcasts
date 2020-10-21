@@ -7,10 +7,10 @@ import DropdownMenu from "../DropdownMenu";
 import { onlineDeleted } from "../../redux/actions";
 import Popup from "../common/Popup";
 import OnlineEditor from "../OnlineEditor";
-import Calendar from 'dayjs/plugin/calendar';
+import Calendar from "dayjs/plugin/calendar";
 dayjs.extend(Calendar);
 
-function Onlines({ online, isAdmin }) {
+function Online({ online, isAdmin }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,11 +37,11 @@ function Onlines({ online, isAdmin }) {
     <div>
       <div className={s.online} onClick={handleClick}>
         <div className={s.time}>
-          {dayjs(online.startedDate).calendar(null,{
-            sameDay: '[Сегодня] HH:mm',
-            lastDay: '[Вчера] HH:mm',
-            lastWeek: 'dddd [в] HH:mm',
-            sameElse: 'DD/MM/YYYY'
+          {dayjs(online.startedDate).calendar(null, {
+            sameDay: "[Сегодня] HH:mm",
+            lastDay: "[Вчера] HH:mm",
+            lastWeek: "dddd HH:mm",
+            sameElse: "DD/MM/YYYY",
           })}
           {isAdmin ? (
             <DropdownMenu
@@ -67,4 +67,4 @@ function Onlines({ online, isAdmin }) {
   );
 }
 
-export default Onlines;
+export default Online;

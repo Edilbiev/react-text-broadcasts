@@ -1,17 +1,16 @@
-import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {backpostsAppended} from "../../redux/actions";
-import s from "./backpostsLoader.module.css"
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { backpostsAppended } from "../../redux/actions";
+import s from "./backpostsLoader.module.css";
 
 function BackpostsLoader() {
   const dispatch = useDispatch();
-  const temp = useSelector(state => state.posts.temp);
-  console.log(temp)
+  const temp = useSelector((state) => state.posts.temp);
 
-  const appendBackposts = () => dispatch(backpostsAppended())
+  const appendBackposts = () => dispatch(backpostsAppended());
 
   if (temp.length === 0) {
-    return null
+    return null;
   }
 
   return (
