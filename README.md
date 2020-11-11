@@ -16,6 +16,5 @@
 - CSS modules;
 - draft-js / WYSIWYG редактор на React;
 - REST API, асинхронные запросы на сервер
-- unit-тесты;
-- react-router-dom, classnames, dayjs, react-simple-animate;
+- react-router-dom, classnames, dayjs, react-transition-group;
 - Git.
