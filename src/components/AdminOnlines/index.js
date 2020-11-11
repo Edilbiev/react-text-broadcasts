@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Online from "../Online";
 import OnlineCreator from "../OnlineCreator";
-import { onlinesLoaded } from "../../redux/actions";
-import s from "../PostsPage/postsPage.module.css";
+import { onlinesLoaded } from "../../redux/ducks/onlines";
 import Loader from "../common/Loader";
 
 function AdminOnlines({ isAdmin }) {
@@ -13,12 +12,17 @@ function AdminOnlines({ isAdmin }) {
     dispatch(onlinesLoaded());
   }, [dispatch]);
 
-  const onlines = useSelector((state) => state.onlines.items);
+  const onlines = useSelector((state) =>
+    state.onlines.items.sort(
+      (a, b) => new Date(b.startedDate) - new Date(a.startedDate)
+    )
+  );
+
   const loading = useSelector((state) => state.onlines.loading);
 
   if (loading) {
     return (
-      <div className={s.loader}>
+      <div className="loader-large">
         <Loader size="large" />
       </div>
     );

@@ -1,17 +1,3 @@
-.background {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  overflow-x: hidden;
-  background-color: #00000055;
-}
-
 .onlineEditor {
   border-radius: 10px;
   box-shadow: 0 0 10px 0 grey;
@@ -21,24 +7,6 @@
   transition: 0.3s;
   max-width: 1000px;
   box-sizing: border-box;
-}
-
-.onlineEditorCreator:hover {
-  box-shadow: 0 0 10px 0 grey;
-}
-
-.title,
-.title::placeholder {
-  font-size: 24px;
-  font-weight: bold;
-  color: black;
-}
-
-.content,
-.content::placeholder {
-  color: black;
-  line-height: 34px;
-  font-family: "PT Serif", serif;
 }
 
 .time {
@@ -52,44 +20,3 @@
   justify-content: flex-end;
 }
 
-.loader {
-  width: 24px;
-  margin: calc(-38px + 8px) auto;
-}
-
-.cancel,
-.edit {
-  padding: 10px;
-  transition: 0.2s;
-  border-radius: 5px;
-}
-
-.cancel {
-  background-color: whitesmoke;
-  margin-right: 10px;
-  color: firebrick;
-}
-
-.cancel:hover {
-  background-color: firebrick;
-  color: white;
-}
-
-.edit {
-  background-color: mediumseagreen;
-  color: white;
-}
-
-.add:hover {
-  background-color: green;
-  color: white;
-}
-
-.add[disabled] {
-  opacity: 0.6;
-  cursor: initial;
-}
-
-.add[disabled]:hover {
-  background-color: mediumseagreen;
-}

@@ -16,20 +16,6 @@
   box-shadow: 0 0 10px 0 grey;
 }
 
-.title,
-.title::placeholder {
-  font-size: 24px;
-  font-weight: bold;
-  color: black;
-}
-
-.content,
-.content::placeholder {
-  color: black;
-  line-height: 34px;
-  font-family: "PT Serif", serif;
-}
-
 .time {
   margin-bottom: 10px;
   font-size: 12px;
@@ -45,48 +31,6 @@
 
 .buttons {
   display: flex;
-}
-
-.loader {
-  width: 24px;
-  margin: calc(-38px + 6px) auto;
-}
-
-.cancel,
-.add {
-  padding: 10px;
-  transition: 0.2s;
-  border-radius: 5px;
-}
-
-.cancel {
-  background-color: whitesmoke;
-  margin-right: 10px;
-  color: firebrick;
-}
-
-.cancel:hover {
-  background-color: firebrick;
-  color: white;
-}
-
-.add {
-  background-color: mediumseagreen;
-  color: white;
-}
-
-.add:hover {
-  background-color: green;
-  color: white;
-}
-
-.add[disabled] {
-  opacity: 0.6;
-  cursor: initial;
-}
-
-.add[disabled]:hover {
-  background-color: mediumseagreen;
 }
 
 .importance {

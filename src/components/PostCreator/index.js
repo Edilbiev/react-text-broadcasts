@@ -8,7 +8,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dayjs from "dayjs";
 import CreatorButton from "../CreatorButton";
 import s from "./postCreator.module.css";
-import { postCreated } from "../../redux/actions";
+import { postCreated } from "../../redux/ducks/posts";
 import cl from "classnames";
 import Switcher from "../Switcher";
 import Loader from "../common/Loader";
@@ -40,14 +40,6 @@ function PostCreator() {
     setCreatorOpened(false);
     setPostCreator(!postCreator);
   };
-
-  // const handleKeyDown = (e) => {
-  //   if (e.keyCode === 13) {
-  //     handleCreatePost();
-  //   }
-  // };
-
-  // const isEmpty = content.getCurrentContent().getPlainText().length === 0;
 
   const handleCreatePost = () => {
     setClicked(true);
@@ -84,7 +76,7 @@ function PostCreator() {
       <div>
         <textarea
           ref={editorRef}
-          className={s.title}
+          className="title"
           placeholder="Введите заголовок"
           value={title}
           onChange={handleChangeTitle}
@@ -112,19 +104,19 @@ function PostCreator() {
         </div>
         <div className={s.buttons}>
           <div>
-            <button className={s.cancel} onClick={handlePostCreator}>
+            <button className="cancel-button" onClick={handlePostCreator}>
               Отмена
             </button>
           </div>
           <div>
             <button
-              className={s.add}
+              className="confirm-button"
               onClick={handleCreatePost}
               disabled={creating}
             >
               Добавить
             </button>
-            <div className={s.loader}>
+            <div className="button-loader">
               {creating && <Loader size="small" />}
             </div>
           </div>

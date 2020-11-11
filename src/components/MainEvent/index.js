@@ -8,10 +8,6 @@ function MainEvent({ item }) {
     targetDOMElement.scrollIntoView({ block: "center", behavior: "smooth" });
   };
 
-  if (!item.hasOwnProperty("title")) {
-    return null;
-  }
-
   return (
     <div className={s.mainEvent} onClick={handleScroll}>
       <div className={s.time}>

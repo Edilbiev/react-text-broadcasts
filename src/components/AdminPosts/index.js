@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { postsLoaded } from "../../redux/actions";
+import { postsLoaded } from "../../redux/ducks/posts";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Post from "../Post";
@@ -25,7 +25,7 @@ function AdminPosts({ isAdmin }) {
 
   if (loading) {
     return (
-      <div className={s.loader}>
+      <div className="loader-large">
         <Loader size="large" />
       </div>
     );

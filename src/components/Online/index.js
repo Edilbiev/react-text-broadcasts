@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import dayjs from "dayjs";
-import s from "./onlines.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DropdownMenu from "../DropdownMenu";
-import { onlineDeleted } from "../../redux/actions";
+import { onlineDeleted } from "../../redux/ducks/onlines";
 import Popup from "../common/Popup";
 import OnlineEditor from "../OnlineEditor";
 import Calendar from "dayjs/plugin/calendar";
-dayjs.extend(Calendar);
 
 function Online({ online, isAdmin }) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const deleting = useSelector((state) => state.onlines.deleting);
 
   const handleClick = () => {
     if (isAdmin) {
@@ -25,18 +25,28 @@ function Online({ online, isAdmin }) {
   const [popup, setPopup] = useState(false);
   const handlePopup = () => setPopup(!popup);
 
+  const [clicked, setClicked] = useState(false);
+
   const handleDelete = (e) => {
     e.stopPropagation();
+    setClicked(true);
     dispatch(onlineDeleted(online._id, online.title, online.introtext));
   };
+
+  if (!deleting && clicked) {
+    handlePopup();
+    setClicked(false);
+  }
 
   const [editor, setEditor] = useState(false);
   const handleEditor = () => setEditor(!editor);
 
+  dayjs.extend(Calendar);
+
   return (
     <div>
-      <div className={s.online} onClick={handleClick}>
-        <div className={s.time}>
+      <div className="online-form" onClick={handleClick}>
+        <div className="time1">
           {dayjs(online.startedDate).calendar(null, {
             sameDay: "[Сегодня] HH:mm",
             lastDay: "[Вчера] HH:mm",
@@ -50,9 +60,9 @@ function Online({ online, isAdmin }) {
             />
           ) : null}
         </div>
-        <div className={s.title}>{online.title}</div>
+        <div className="title">{online.title}</div>
         <div
-          className={s.content}
+          className="content"
           dangerouslySetInnerHTML={{ __html: online.introtext }}
         />
       </div>
@@ -61,6 +71,7 @@ function Online({ online, isAdmin }) {
         cancel={handlePopup}
         action={handleDelete}
         text={"Подтвердите действие"}
+        deleting={deleting}
       />
       <OnlineEditor online={online} isOpened={editor} cancel={handleEditor} />
     </div>

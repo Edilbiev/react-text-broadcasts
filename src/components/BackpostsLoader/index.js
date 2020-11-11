@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { backpostsAppended } from "../../redux/actions";
+import { backpostsAppended } from "../../redux/ducks/posts";
 import s from "./backpostsLoader.module.css";
 
 function BackpostsLoader() {
@@ -9,13 +9,11 @@ function BackpostsLoader() {
 
   const appendBackposts = () => dispatch(backpostsAppended());
 
-  if (temp.length === 0) {
-    return null;
-  }
-
   return (
     <div className={s.backpostsLoader} onClick={appendBackposts}>
-      Загрузить новые посты
+      <div className={s.inner}>
+        Загрузить новые посты ({temp.length})
+      </div>
     </div>
   );
 }

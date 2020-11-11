@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import onlines from "./reducers/onlines";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger/src";
-import posts from "./reducers/posts";
-import auth from "./reducers/auth";
+import onlines from "./ducks/onlines";
+import posts from "./ducks/posts";
+import auth from "./ducks/auth";
 
 const logger = createLogger({
   diff: true,

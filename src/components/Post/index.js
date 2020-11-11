@@ -3,17 +3,19 @@ import dayjs from "dayjs";
 import cl from "classnames";
 import useEmbed from "../../hooks/useEmbed";
 import s from "./post.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DropdownMenu from "../DropdownMenu";
-import { postDeleted } from "../../redux/actions";
+import { postDeleted } from "../../redux/ducks/posts";
 import Popup from "../common/Popup";
 import PostEditor from "../PostEditor";
 import Calendar from "dayjs/plugin/calendar";
-dayjs.extend(Calendar);
 
 function Post({ item, isAdmin }) {
   const dispatch = useDispatch();
   const ref = useRef(null);
+
+  const deleting = useSelector((state) => state.posts.deleting);
+
   const embedHook = useEmbed(item);
 
   useEffect(() => {
@@ -23,17 +25,25 @@ function Post({ item, isAdmin }) {
   }, [embedHook]);
 
   const [popup, setPopup] = useState(false);
-  const handlePopup = (e) => {
-    setPopup(!popup);
-  };
+  const handlePopup = () => setPopup(!popup);
 
   const [editor, setEditor] = useState(false);
   const handleEditor = () => setEditor(!editor);
 
+  const [clicked, setClicked] = useState(false);
+
   const handleDelete = (e) => {
+    setClicked(true);
     e.stopPropagation();
     dispatch(postDeleted(item._id));
   };
+
+  dayjs.extend(Calendar);
+
+  if (!deleting && clicked) {
+    handlePopup();
+    setClicked(false);
+  }
 
   return (
     <div
@@ -42,7 +52,7 @@ function Post({ item, isAdmin }) {
         [s.importantCard]: item.important,
       })}
     >
-      <div className={s.time}>
+      <div className="time1">
         {dayjs(item.createdDate).calendar(null, {
           sameDay: "[Сегодня] HH:mm",
           lastDay: "[Вчера] HH:mm",
@@ -53,14 +63,15 @@ function Post({ item, isAdmin }) {
           <DropdownMenu handlePopup={handlePopup} handleEditor={handleEditor} />
         ) : null}
       </div>
-      <div className={s.title}>{item.title}</div>
-      <div className={s.content} ref={ref} />
+      <div className="title">{item.title}</div>
+      <div className="content" ref={ref} />
 
       <Popup
         isOpened={popup}
         cancel={handlePopup}
         action={handleDelete}
         text={"Подтвердите действие"}
+        deleting={deleting}
       />
       <PostEditor item={item} isOpened={editor} cancel={handleEditor} />
     </div>

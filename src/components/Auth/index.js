@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userAuthorised } from "../../redux/actions";
+import { userAuthorised } from "../../redux/ducks/auth";
 import s from "./auth.module.css";
 import { Redirect } from "react-router-dom";
 import Loader from "../common/Loader";
+import visibilityOnIcon from "./visibility-black-18dp.svg";
+import visibilityOffIcon from "./visibility_off-black-18dp.svg";
 
 function Auth() {
   const dispatch = useDispatch();
@@ -17,6 +19,15 @@ function Auth() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
+  const [visibility, setVisibility] = useState(false);
+
+  const passwordRef = useRef(null);
+
+  const setPasswordVisible = () => {
+    passwordRef.current.focus();
+    setVisibility(!visibility);
+  };
+
   const handleChangeUsername = (e) => {
     setLogin(e.target.value);
   };
@@ -26,6 +37,7 @@ function Auth() {
   };
 
   const handleClick = () => {
+    setError(false);
     dispatch(userAuthorised(login, password));
     setClicked(true);
   };
@@ -57,13 +69,22 @@ function Auth() {
         className={s.input}
         onKeyDown={handleKeyDown}
       />
-      <input
-        placeholder="Введите пароль"
-        value={password}
-        onChange={handleChangePassword}
-        className={s.input}
-        onKeyDown={handleKeyDown}
-      />
+      <div className={s.password}>
+        <input
+          placeholder="Введите пароль"
+          value={password}
+          onChange={handleChangePassword}
+          className={s.input}
+          onKeyDown={handleKeyDown}
+          type={!visibility ? "password" : ""}
+          ref={passwordRef}
+        />
+        {password === "" ? null : (
+          <button onClick={setPasswordVisible} className={s.visibility}>
+            <img src={!visibility ? visibilityOnIcon : visibilityOffIcon} alt="visibility"/>
+          </button>
+        )}
+      </div>
       <div>
         <button
           type="submit"

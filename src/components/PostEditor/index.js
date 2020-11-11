@@ -8,7 +8,7 @@ import Loader from "../common/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { ContentState, convertToRaw, EditorState } from "draft-js";
 import htmlToDraft from "html-to-draftjs";
-import { postEdited } from "../../redux/actions";
+import { postEdited } from "../../redux/ducks/posts";
 import draftToHtml from "draftjs-to-html";
 
 function PostEditor({ item, isOpened, cancel }) {
@@ -35,12 +35,15 @@ function PostEditor({ item, isOpened, cancel }) {
     } else {
       document.body.style.removeProperty("overflow");
     }
-  });
+  }, [isOpened]);
 
   const [importance, setImportance] = useState(false);
   const handleSwitch = () => setImportance(!importance);
 
-  const handleEdit = () =>
+  const [clicked, setClicked] = useState(false);
+
+  const handleEdit = () => {
+    setClicked(true);
     dispatch(
       postEdited(
         item._id,
@@ -49,13 +52,19 @@ function PostEditor({ item, isOpened, cancel }) {
         importance
       )
     );
+  }
+
+  if (!editing && clicked) {
+    cancel();
+    setClicked(false);
+  }
 
   if (!isOpened) {
     return null;
   }
 
   return (
-    <div className={s.background}>
+    <div className="popup-background">
       <div
         className={cl(s.postEditor, {
           [s.importantPostEditor]: importance,
@@ -64,7 +73,7 @@ function PostEditor({ item, isOpened, cancel }) {
         <div className={s.time}>{dayjs(item.createdDate).format("HH:mm")}</div>
         <div>
           <textarea
-            className={s.title}
+            className="title"
             placeholder="Введите заголовок"
             value={title}
             onChange={handleChangeTitle}
@@ -81,7 +90,7 @@ function PostEditor({ item, isOpened, cancel }) {
           />
         </div>
         <div className={s.handlers}>
-          <div className={s.importance}>
+          <div>
             <Switcher
               defaultValue={importance}
               onSwitchedOff={handleSwitch}
@@ -90,19 +99,19 @@ function PostEditor({ item, isOpened, cancel }) {
           </div>
           <div className={s.buttons}>
             <div>
-              <button className={s.cancel} onClick={cancel}>
+              <button className="cancel-button" onClick={cancel}>
                 Отмена
               </button>
             </div>
             <div>
               <button
-                className={s.edit}
+                className="confirm-button"
                 onClick={handleEdit}
                 disabled={editing}
               >
                 Изменить
               </button>
-              <div className={s.loader}>
+              <div className="button-loader">
                 {editing && <Loader size="small" />}
               </div>
             </div>

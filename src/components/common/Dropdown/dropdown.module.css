@@ -18,3 +18,10 @@
   box-shadow: 0 5px 5px 0 #e7eaed;
   text-align: left;
 }
+
+@media only screen and (max-width: 768px) {
+  .dropdown {
+    right: 0;
+  }
+}
+

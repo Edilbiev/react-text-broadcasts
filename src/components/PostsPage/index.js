@@ -5,13 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import s from "./postsPage.module.css";
 import MainEventsButton from "../MainEventsButton";
-import {
-  backgroundPostsLoaded,
-  mainEventsBarHandled,
-  postsLoaded,
-} from "../../redux/actions";
 import { CSSTransition } from "react-transition-group";
 import Loader from "../common/Loader";
+import { backgroundPostsLoaded, postsLoaded } from "../../redux/ducks/posts";
+import { mainEventsBarHandled } from "../../redux/ducks/onlines";
 
 function PostsPage() {
   const id = useParams().id;
@@ -22,9 +19,10 @@ function PostsPage() {
   }, [dispatch, id]);
 
   useEffect(() => {
-    setInterval(() => {
+    const i = setInterval(() => {
       dispatch(backgroundPostsLoaded(id));
-    }, 20000);
+    }, 5000);
+    return () => clearInterval(i);
   }, [dispatch, id]);
 
   const mainEventsBarOpened = useSelector(({ onlines }) => {
@@ -43,7 +41,7 @@ function PostsPage() {
 
   if (loading) {
     return (
-      <div className={s.loader}>
+      <div className="loader-large">
         <Loader size="large" />
       </div>
     );

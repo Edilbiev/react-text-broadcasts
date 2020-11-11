@@ -4,7 +4,7 @@
 }
 
 .post {
-  min-width: 670px;
+  /*min-width: 670px;*/
   flex: 1;
 }
 
@@ -14,9 +14,17 @@
 }
 
 .newPostsBorder {
-  padding: 10px;
+  height: 38px;
   border-top: 1px solid firebrick;
   border-bottom: 1px solid firebrick;
-  text-align: center;
   margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.newPostsBorder img {
+  width: 18px;
+}
+
+

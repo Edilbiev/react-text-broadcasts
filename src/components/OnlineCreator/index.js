@@ -8,7 +8,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dayjs from "dayjs";
 import s from "./onlineCreator.module.css";
 import BroadcastCreatorButton from "../CreatorButton";
-import { onlineCreated } from "../../redux/actions";
+import { onlineCreated } from "../../redux/ducks/onlines";
 import Loader from "../common/Loader";
 
 function OnlineCreator() {
@@ -63,11 +63,11 @@ function OnlineCreator() {
   }
 
   return (
-    <div className={s.broadcastsCreator}>
+    <div className="online-form">
       <div className={s.time}>{dayjs(new Date()).format("HH:mm")}</div>
       <div>
         <textarea
-          className={s.title}
+          className="title"
           placeholder="Введите заголовок"
           value={title}
           onChange={handleChangeTitle}
@@ -87,19 +87,19 @@ function OnlineCreator() {
       </div>
       <div className={s.buttons}>
         <div>
-          <button className={s.cancel} onClick={handleBroadcastCreator}>
+          <button className="cancel-button" onClick={handleBroadcastCreator}>
             Отмена
           </button>
         </div>
         <div>
           <button
-            className={s.add}
+            className="confirm-button"
             onClick={handleAddBroadcast}
             disabled={creating || isEmpty}
           >
             Добавить
           </button>
-          <div className={s.loader}>{creating && <Loader size="small" />}</div>
+          <div className="button-loader">{creating && <Loader size="small" />}</div>
         </div>
       </div>
     </div>

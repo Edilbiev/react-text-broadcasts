@@ -6,7 +6,7 @@ import Loader from "../common/Loader";
 import htmlToDraft from "html-to-draftjs";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
 import { useDispatch, useSelector } from "react-redux";
-import { onlineEdited } from "../../redux/actions";
+import { onlineEdited } from "../../redux/ducks/onlines";
 import draftToHtml from "draftjs-to-html";
 
 function OnlineEditor({ isOpened, online, cancel }) {
@@ -46,7 +46,7 @@ function OnlineEditor({ isOpened, online, cancel }) {
     } else {
       document.body.style.removeProperty("overflow");
     }
-  });
+  }, [isOpened]);
 
   if (!editing && clicked) {
     cancel();
@@ -58,14 +58,14 @@ function OnlineEditor({ isOpened, online, cancel }) {
   }
 
   return (
-    <div className={s.background}>
+    <div className="popup-background">
       <div className={s.onlineEditor}>
         <div className={s.time}>
           {dayjs(online.startedDate).format("HH:mm")}
         </div>
         <div>
           <textarea
-            className={s.title}
+            className="title"
             placeholder="Введите заголовок"
             value={title}
             onChange={handleChangeTitle}
@@ -83,19 +83,21 @@ function OnlineEditor({ isOpened, online, cancel }) {
         </div>
         <div className={s.buttons}>
           <div>
-            <button className={s.cancel} onClick={cancel}>
+            <button className="cancel-button" onClick={cancel}>
               Отмена
             </button>
           </div>
           <div>
             <button
-              className={s.edit}
+              className="confirm-button"
               onClick={handleEditOnline}
               disabled={editing}
             >
               Изменить
             </button>
-            <div className={s.loader}>{editing && <Loader size="small" />}</div>
+            <div className="button-loader">
+              {editing && <Loader size="small" />}
+            </div>
           </div>
         </div>
       </div>

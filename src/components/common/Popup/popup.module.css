@@ -25,32 +25,12 @@
   box-shadow: 0 0 10px 0 grey;
   padding: 20px;
   background-color: whitesmoke;
+  box-sizing: border-box;
 }
 
-.cancel,
-.add {
-  padding: 10px;
-  transition: 0.2s;
-  border-radius: 5px;
-}
-
-.cancel {
-  background-color: whitesmoke;
-  margin-right: 10px;
-  color: firebrick;
-}
-
-.add {
-  background-color: mediumseagreen;
-  color: white;
-}
-
-.cancel:hover {
-  background-color: firebrick;
-  color: white;
-}
-
-.add:hover {
-  background-color: green;
-  color: white;
+.loader {
+  width: 24px;
+  position: absolute;
+  margin-top: calc(-38px + 8px);
+  margin-left: calc(84px / 2 - 12px);
 }

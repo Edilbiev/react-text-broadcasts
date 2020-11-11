@@ -3,3 +3,13 @@
   border-left: 1px whitesmoke solid;
   margin-left: 20px;
 }
+
+.title {
+  width: 200px;
+}
+
+@media only screen and (max-width: 768px) {
+  .mainEvents {
+    display: none;
+  }
+}

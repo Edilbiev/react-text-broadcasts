@@ -39,10 +39,14 @@ function MainEvents({ isOpened }) {
     return newItems;
   });
 
+  const filteredItems = items.filter(
+    (item) => item.hasOwnProperty("title") && item.title !== ""
+  );
+
   return (
     <div className={s.mainEvents}>
-      Ключевые моменты
-      {items.map((item) => (
+      <div className={s.title}>Ключевые моменты</div>
+      {filteredItems.map((item) => (
         <MainEvent item={item} key={item._id} />
       ))}
     </div>

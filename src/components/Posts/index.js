@@ -2,15 +2,20 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Post from "../Post";
-import { orderReversed } from "../../redux/actions";
+import { orderReversed } from "../../redux/ducks/onlines";
 import Switcher from "../Switcher";
 import PostsSliceButtons from "../PostsSliceButtons";
 import s from "./posts.module.css";
 import BackpostsLoader from "../BackpostsLoader";
+import { CSSTransition } from "react-transition-group";
+import downwardIcon from "./arrow_downward-24px.svg";
+import upwardIcon from "./arrow_upward-24px.svg";
 
 function Posts() {
   const dispatch = useDispatch();
   const id = useParams().id;
+
+  const temp = useSelector((state) => state.posts.temp);
 
   const reversed = useSelector(({ onlines }) => {
     if (onlines.reversed.hasOwnProperty(id)) {
@@ -44,12 +49,16 @@ function Posts() {
     return newItems;
   });
 
+  const switcherDisabled = items.length === 0;
+
   const reverseOrder = () => {
     dispatch(orderReversed(id));
   };
 
   const handleSwitch = () => {
-    reverseOrder();
+    if (!switcherDisabled) {
+      reverseOrder();
+    }
   };
 
   return (
@@ -60,15 +69,25 @@ function Posts() {
           defaultValue={reversed}
           onSwitchedOn={handleSwitch}
           onSwitchedOff={handleSwitch}
+          disabled={switcherDisabled}
         />
       </div>
-      <BackpostsLoader />
+      <CSSTransition
+        in={temp.length !== 0}
+        timeout={300}
+        classNames="backposts-loader"
+        unmountOnExit
+      >
+        <BackpostsLoader />
+      </CSSTransition>
       <div>
         {items.map((item) => {
           if (item.separate) {
             return (
               <div className={s.newPostsBorder} key={item._id}>
-                {item.content}
+                <img src={reversed ? downwardIcon : upwardIcon} alt="icon" />{" "}
+                {item.content}{" "}
+                <img src={reversed ? downwardIcon : upwardIcon} alt="icon" />
               </div>
             );
           }

@@ -1,6 +1,12 @@
 .switcher {
   font-size: 15px;
   height: 25px;
+  cursor: pointer;
+}
+
+.switcherDisabled {
+  cursor: initial;
+  opacity: .5;
 }
 
 .backgroundOff {
@@ -13,7 +19,6 @@
   background: linear-gradient(to bottom, #afafaf, #dcdcdc);
   display: flex;
   align-items: center;
-  cursor: pointer;
   margin-right: 3px;
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { postsCountSet } from "../../redux/actions";
 import s from "./PostsSliceButtons.module.css";
 import cl from "classnames";
+import { postsCountSet } from "../../redux/ducks/onlines";
 
 function PostsSliceButtons() {
   const id = useParams().id;

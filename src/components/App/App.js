@@ -4,9 +4,9 @@ import Pages from "../Pages";
 import { BrowserRouter } from "react-router-dom";
 import dayjs from "dayjs";
 import updateLocale from "dayjs/plugin/updateLocale";
-dayjs.extend(updateLocale);
 
 function App() {
+  dayjs.extend(updateLocale);
   dayjs.updateLocale("en", {
     weekdays: [
       "Воскресенье",
@@ -18,6 +18,7 @@ function App() {
       "Суббота",
     ],
   });
+
   return (
     <div className="app">
       <BrowserRouter>

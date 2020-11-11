@@ -7,8 +7,8 @@ export default function getFacebookNode(url) {
     encoded +
     "&show_text=true&width=552&appId=1260168264328153&height=292";
 
-  iframe.width = "550";
-  iframe.height = "300";
+  iframe.width = "100%";
+  iframe.height = "390";
   iframe.scrolling = "no";
   iframe.frameBorder = "0";
   iframe.allow = "encrypted-media";
